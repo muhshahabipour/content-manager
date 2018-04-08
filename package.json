@@ -8,6 +8,10 @@
     "start": "webpack-dev-server --env.NODE_ENV=local --env.development --progress",
     "build": "webpack --env.NODE_ENV=local --env.production --progress"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muhshahabipour/content-manager.git"
+  },
   "author": "muhshahabipour",
   "license": "ISC",
   "devDependencies": {
