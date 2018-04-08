@@ -1,8 +1,8 @@
 {
-  "name": "drilldown-sidebar",
+  "name": "content-manager",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/drilldownSidebar.js",
+  "main": "dist/contentManager.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --env.NODE_ENV=local --env.development --progress",
