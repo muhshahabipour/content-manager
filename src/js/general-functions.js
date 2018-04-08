@@ -1,3 +1,4 @@
+
 export const insertAfter = (newElement, targetElement) => {
     // target is what you want it to go after. Look for this elements parent.
     var parent = targetElement.parentNode;
@@ -39,6 +40,7 @@ export const uuid = () => {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
+
 
 
 export default {

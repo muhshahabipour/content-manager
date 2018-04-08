@@ -6,7 +6,9 @@ import { relative } from 'path';
 
 
 let defaults = {
-    target: ''
+    target: '',
+    placeholder: '',
+    editor: false,
 }
 
 let elem = null;
@@ -25,7 +27,7 @@ export class ContentManager extends Emitter {
             this.elem.dataset["name"] = "ali";
             this.elem.classList.add("cm-wrapper");
             
-            this.core = new core(this.elem);
+            this.core = new core(this.elem, defaults);
             
             
             this.core.init();

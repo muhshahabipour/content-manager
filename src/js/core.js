@@ -1,4 +1,5 @@
 import general from './general-functions'
+import tippy from 'tippy.js'
 import map from 'lodash/map'
 
 var createSection = require("./templates/create-section.handlebars");
@@ -6,8 +7,9 @@ var createSection = require("./templates/create-section.handlebars");
 
 export default class core {
 
-    constructor(elem) {
+    constructor(elem, defaults) {
         this.elem = elem;
+        this.defaults = defaults;
         this.data = [];
     }
 
@@ -39,11 +41,14 @@ export default class core {
         // contenteditableDiv.innerHTML = "for test => " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         contenteditableDiv.setAttribute("contenteditable", "true");
-        contenteditableDiv.setAttribute("placeholder", "write here...");
+        contenteditableDiv.setAttribute("placeholder", this.defaults.placeholder || "write here...");
         contenteditableDiv.classList.add("cm-content");
         contenteditableDiv.id = "cm-content-" + id;
 
         section.appendChild(contenteditableDiv);
+
+        // console.log(this.defaults.editor)
+
 
         contenteditableDiv.addEventListener("keypress", (event) => {
             let keycode = (event.charCode ? event.charCode : event.which);
@@ -80,7 +85,7 @@ export default class core {
         });
 
 
-        // show/hide burron control
+        // show/hide button control
         contenteditableDiv.addEventListener("input", function (event) {
             let buttonControl = document.querySelector("#cm-btn-control-" + contenteditableDiv.parentNode.id);
             if (!this.innerText.trim().length) {
@@ -90,6 +95,33 @@ export default class core {
             }
 
             thisClass.updateContent(contenteditableDiv);
+        });
+
+
+        contenteditableDiv.addEventListener('mouseup', function (event) {
+            let selection;
+
+            if (window.getSelection) {
+                selection = window.getSelection();
+            } else if (document.selection) {
+                selection = document.selection.createRange();
+            }
+
+
+            let span = document.createElement('span');
+            span.textContent = selection.toString();
+            span.setAttribute('title', "asdsafgaggs");
+
+            let range = selection.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(span);
+
+            // selection.toString() !== '' && alert('"' + selection.toString() + '" was selected at ' + event.pageX + '/' + event.pageY);
+
+            tippy(span, {
+                // html: el => el.querySelector('.popup')
+            });
+
         });
 
         // add to target
@@ -102,6 +134,9 @@ export default class core {
 
 
         section.appendChild(btnControlDiv);
+
+
+
 
         // get btn create
         let btnCreate = btnControlDiv.querySelector(".btn-create");
@@ -134,6 +169,7 @@ export default class core {
 
 
         contenteditableDiv.focus();
+
 
     }
 
