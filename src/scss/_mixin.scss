@@ -1,0 +1,92 @@
+@mixin fontdef-woff($FontPath, $FontName, $FontVersion:"1.0.0", $FontType:"Regular") {
+  src: url('#{$FontPath}/#{$FontName}/#{$FontType}/#{$FontName}-#{$FontType}.woff2?v=#{$FontVersion}') format('woff2'),
+  url('#{$FontPath}/#{$FontName}/#{$FontType}/#{$FontName}-#{$FontType}.woff?v=#{$FontVersion}') format('woff');
+}
+
+@mixin push--auto {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+@mixin pseudo($display: block,
+$pos: absolute,
+$content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+@mixin responsive-ratio($x,
+$y,
+$pseudo: false) {
+  $padding: unquote( ( $y / $x) * 100 + '%');
+  @if $pseudo {
+    &:before {
+      @include pseudo($pos: relative);
+      width: 100%;
+      padding-top: $padding;
+    }
+  }
+  @else {
+    padding-top: $padding;
+  }
+}
+
+@mixin input-placeholder {
+  &.placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+$breakpoints: ( "phone": 400px,
+"phone-wide": 480px,
+"phablet": 560px,
+"tablet-small": 640px,
+"tablet": 768px,
+"tablet-wide": 1024px,
+"desktop": 1248px,
+"desktop-wide": 1440px);
+@mixin mq($width,
+$type: min) {
+  @if map_has_key($breakpoints,
+  $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type==max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin hardware($backface: true,
+$perspective: 1000) {
+  @if $backface {
+    backface-visibility: hidden;
+  }
+  perspective: $perspective;
+}
+
+@mixin truncate($truncation-boundary: false) {
+  @if not $truncation-boundary {
+    max-width: $truncation-boundary;
+  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

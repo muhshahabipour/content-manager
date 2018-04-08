@@ -1,0 +1,128 @@
+@import "mixin";
+@import "fonts";
+$drilldown-link-color: #656565;
+$drilldown-hover-link-color: #424242;
+$drilldown-focus-link-color: #424242;
+$drilldown-active-link-color: #424242;
+$drilldown-disable-link-color: #656565;
+$drilldown-disable-hover-link-color: #656565;
+$drilldown-disable-focus-link-color: #656565;
+$drilldown-disable-active-link-color: #656565;
+// ===========================================================
+body {
+    font-family: Roboto, IRANSans, sans-serif !important; // direction: rtl;
+}
+
+.hidden{
+    display: none;
+}
+
+// ===========================================================
+.hasChild>a:after {
+    content: ""; // rtl => border-right: 4px dashed;
+    // ltr => border-left: 4px dashed;
+    border-right: 4px dashed;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+// ===========================================================
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block;
+}
+
+// ===========================================================
+.cm-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.cm-section {
+    position: relative;
+}
+
+.cm-content {
+    min-height: 40px;
+    padding: 8px;
+    &:focus{
+        outline: none;
+    }
+}
+
+.cm-btn-control {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    // display: none;
+    .btn-create {
+        border-radius: 50vh;
+        padding: 5px;
+        border: 1px solid #656565;
+        background-color: #ffffff;
+        color: #656565;
+        cursor: pointer;
+        &:hover,
+        &:active,
+        &:focus {
+            color: #424242;
+            border-color: #424242;
+            outline: none;
+        }
+    }
+    .btn-create-wrapper {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .btn-create {
+            position: absolute;
+            top: 0;
+            left: -37px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            i {
+                transition: transform 400ms ease-in-out;
+            }
+            &.close i {
+                transition: transform 400ms ease-in-out;
+                transform: rotate(45deg);
+            }
+        }
+    }
+}
+
+.create-section-list {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 4px;
+    &.show {
+        display: block;
+    }
+    li {
+        display: inline;
+        button {
+            padding: 5px 8px;
+            border: 1px solid #656565;
+            color: #656565;
+            background-color: #ffffff;
+            border-radius: 50vh;
+            cursor: pointer;
+            &:hover,
+            &:active,
+            &:focus {
+                outline: none;
+                color: #424242;
+                border-color: #424242;
+            }
+            i {
+                font-size: 18px;
+            }
+        }
+    }
+}

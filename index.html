@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Content Manager</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="contentManager.css" />
+</head>
+
+<body>
+  <div class="container-fluid">
+
+    <div class="clearfix">&nbsp;</div>
+
+    <div class="col-xs-12 text-center">
+      <h2 id="">Content Manager</h2>
+    </div>
+
+    <div class="clearfix">&nbsp;</div>
+
+
+    <div class="col-xs-12 col-lg-2" style="margin:0 auto">
+      <div id="contentManager"></div>
+      <!-- <div id="contentManager2"></div> -->
+    </div>
+
+
+  </div>
+
+  <script src="/contentManager.js"></script>
+
+  <script>
+    var a = new ContentManager({
+      target: "#contentManager"
+    });
+
+
+  
+  </script>
+</body>
+
+</html>

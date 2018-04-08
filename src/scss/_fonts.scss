@@ -1,0 +1,222 @@
+$FontPath: "../fonts" !default;
+$FontName: "Roboto" !default;
+$FontVersion: "2.137" !default;
+
+/* =========================== Roboto ================================= */
+@font-face {
+  font-family: Roboto;
+  @include fontdef-woff($FontPath, $FontName, $FontVersion, "Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  @include fontdef-woff($FontPath, $FontName, $FontVersion, "Bold");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  @include fontdef-woff($FontPath, $FontName, $FontVersion, "Medium");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  @include fontdef-woff($FontPath, $FontName, $FontVersion, "Regular");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  @include fontdef-woff($FontPath, $FontName, $FontVersion, "Regular");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  @include fontdef-woff($FontPath, $FontName, $FontVersion, "Light");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  @include fontdef-woff($FontPath, $FontName, $FontVersion, "Thin");
+  font-weight: 100;
+  font-style: normal;
+}
+
+/* =========================== Roboto ================================= */
+/* =========================== Vazir ================================= */
+
+@font-face {
+  font-family: Vazir;
+  @include fontdef-woff($FontPath, "Vazir", 1, "Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Vazir;
+  @include fontdef-woff($FontPath, "Vazir", 1, "Bold");
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Vazir;
+  @include fontdef-woff($FontPath, "Vazir", 1, "Medium");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Vazir;
+  @include fontdef-woff($FontPath, "Vazir", 1, "Regular");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Vazir;
+  @include fontdef-woff($FontPath, "Vazir", 1, "Regular");
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12px !important;
+}
+
+@font-face {
+  font-family: Vazir;
+  @include fontdef-woff($FontPath, "Vazir", 1, "Light");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Vazir;
+  @include fontdef-woff($FontPath, "Vazir", 1, "Thin");
+  font-weight: 100;
+  font-style: normal;
+}
+
+/* =========================== Vazir ================================= */
+/* =========================== IRANSans ================================= */
+
+@font-face {
+  font-family: IRANSans;
+  @include fontdef-woff($FontPath, "IRANSans", 1, "Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: IRANSans;
+  @include fontdef-woff($FontPath, "IRANSans", 1, "Bold");
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: IRANSans;
+  @include fontdef-woff($FontPath, "IRANSans", 1, "Medium");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: IRANSans;
+  @include fontdef-woff($FontPath, "IRANSans", 1, "Regular");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: IRANSans;
+  @include fontdef-woff($FontPath, "IRANSans", 1, "Regular");
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12px !important;
+}
+
+@font-face {
+  font-family: IRANSans;
+  @include fontdef-woff($FontPath, "IRANSans", 1, "Light");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: IRANSans;
+  @include fontdef-woff($FontPath, "IRANSans", 1, "Thin");
+  font-weight: 100;
+  font-style: normal;
+}
+
+/* =========================== IRANSans ================================= */
+/* =========================== Material ================================= */
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url($FontPath + '/MaterialIcons/MaterialIcons-Regular.eot');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url($FontPath + '/MaterialIcons/MaterialIcons-Regular.woff2') format('woff2'), url($FontPath + '/MaterialIcons/MaterialIcons-Regular.woff') format('woff'), url($FontPath + '/MaterialIcons/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.material-icons {
+  &.md-18 {
+    font-size: 18px;
+  }
+  &.md-24 {
+    font-size: 24px;
+  }
+  &.md-36 {
+    font-size: 36px;
+  }
+  &.md-48 {
+    font-size: 48px;
+  }
+
+  &.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+    &.md-inactive {
+      color: rgba(0, 0, 0, 0.26);
+    }
+  }
+  &.md-light {
+    color: rgba(255, 255, 255, 1);
+    &.md-inactive {
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
