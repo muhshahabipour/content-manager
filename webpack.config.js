@@ -103,7 +103,7 @@ module.exports = env => {
         },
         resolve: {
             alias: {
-                handlebars: 'handlebars/dist/handlebars.min.js'
+                handlebars: 'handlebars/dist/handlebars.min.js',
             }
         }
     }

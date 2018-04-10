@@ -3,6 +3,7 @@ import tippy from 'tippy.js'
 import map from 'lodash/map'
 
 var createSection = require("./templates/create-section.handlebars");
+var tooltip = require("./templates/tooltip.handlebars");
 
 
 export default class core {
@@ -107,21 +108,22 @@ export default class core {
                 selection = document.selection.createRange();
             }
 
+            if (selection.toString().length) {
+                let span = document.createElement('span');
+                span.textContent = selection.toString();
+                // span.setAttribute('title', "textContent");
 
-            let span = document.createElement('span');
-            span.textContent = selection.toString();
-            span.setAttribute('title', "asdsafgaggs");
+                let range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(span);
 
-            let range = selection.getRangeAt(0);
-            range.deleteContents();
-            range.insertNode(span);
+                // alert(selection.toString())
 
-            // selection.toString() !== '' && alert('"' + selection.toString() + '" was selected at ' + event.pageX + '/' + event.pageY);
+                // selection.toString() !== '' && alert('"' + selection.toString() + '" was selected at ' + event.pageX + '/' + event.pageY);
+                let a = document.createElement('div');
+                a.innerHTML = tooltip();
 
-            tippy(span, {
-                // html: el => el.querySelector('.popup')
-            });
-
+            }
         });
 
         // add to target

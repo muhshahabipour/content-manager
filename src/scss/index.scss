@@ -13,7 +13,7 @@ body {
     font-family: Roboto, IRANSans, sans-serif !important; // direction: rtl;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
@@ -45,7 +45,7 @@ body {
 .cm-content {
     min-height: 40px;
     padding: 8px;
-    &:focus{
+    &:focus {
         outline: none;
     }
 }
@@ -55,8 +55,7 @@ body {
     z-index: 2;
     top: 0;
     left: 0;
-    right: 0;
-    // display: none;
+    right: 0; // display: none;
     .btn-create {
         border-radius: 50vh;
         padding: 5px;
@@ -126,3 +125,42 @@ body {
         }
     }
 }
+
+.text-editor-wrapper {
+    padding: 0;
+    .text-editor-item:first-child {
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+    }
+    .text-editor-item:last-child {
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+        border-right: 1px solid #000000;
+    }
+}
+
+.text-editor-item {
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    background-color: #424242;
+    color: #ffffff;
+}
+
+.custom-icons {
+    font-style: normal;
+
+    &.ci-18 {
+        font-size: 18px;
+    }
+    &.ci-b {
+        font-weight: bold;
+    }
+}
+
+
+
+@import "../../node_modules/draft-js/dist/Draft.css"
