@@ -31,10 +31,11 @@ export default class core {
 
         this.data.push(thisObject);
 
+
+        // start item wrapper
         let section = document.createElement('div');
         section.classList.add('cm-section');
         section.id = id;
-
 
         let contenteditableDiv = document.createElement('div');
 
@@ -48,9 +49,9 @@ export default class core {
 
         section.appendChild(contenteditableDiv);
 
-        // console.log(this.defaults.editor)
+        /************************ start event listener ************************/
 
-
+        // handler remove section
         contenteditableDiv.addEventListener("keypress", (event) => {
             let keycode = (event.charCode ? event.charCode : event.which);
             if (keycode === 8) {
@@ -58,7 +59,6 @@ export default class core {
                 if (inn === "" || !inn.length || inn === "\r\n" || inn === "\n") {
                     // remove section
                     event.preventDefault();
-                    console.log("try to remove");
                     if (this.elem.querySelectorAll('.cm-section').length > 1) {
                         this.elem.removeChild(section);
                         let lastElement = this.elem.lastElementChild.querySelector('.cm-content')
@@ -68,6 +68,7 @@ export default class core {
             }
         });
 
+        // handler new line/section 
         contenteditableDiv.addEventListener("keydown", (event) => {
             let keycode = (event.charCode ? event.charCode : event.which);
             if (keycode === 13 && (event.ctrlKey || event.metaKey)) {
@@ -85,8 +86,7 @@ export default class core {
             }
         });
 
-
-        // show/hide button control
+        // handler show/hide button control
         contenteditableDiv.addEventListener("input", function (event) {
             let buttonControl = document.querySelector("#cm-btn-control-" + contenteditableDiv.parentNode.id);
             if (!this.innerText.trim().length) {
@@ -98,7 +98,7 @@ export default class core {
             thisClass.updateContent(contenteditableDiv);
         });
 
-
+        // handler show/hide tooltip content edit
         contenteditableDiv.addEventListener('mouseup', function (event) {
             let selection;
 
@@ -126,7 +126,10 @@ export default class core {
             }
         });
 
-        // add to target
+        /************************ end event listener ************************/
+
+
+        // assign type management buttons to contenteditable
         let btnControlDiv = document.createElement('div');
         btnControlDiv.classList.add("cm-btn-control");
         btnControlDiv.id = "cm-btn-control-" + id;
@@ -134,40 +137,39 @@ export default class core {
             id: id
         });
 
-
         section.appendChild(btnControlDiv);
 
 
-
-
-        // get btn create
+        // select button create
         let btnCreate = btnControlDiv.querySelector(".btn-create");
 
-        // get create items wrapper
+        // select buttons type management wrapper
         let createList = btnControlDiv.querySelector(".create-section-list");
 
-        // initial add button click
+        // handle click on button create
         btnCreate.addEventListener("click", () => {
             createList.classList.toggle('show');
             btnCreate.classList.toggle('close');
         });
 
-        // get create items
+        // select add item buttons
         let btnsAdd = btnControlDiv.querySelectorAll("[data-action='add']");
 
-        // initial add type button click
+        // handle type managment button click
         btnsAdd.forEach((btnAdd) => {
             btnAdd.addEventListener("click", (event) => {
                 console.log(event.currentTarget.dataset["type"]);
             })
         });
 
-
+        // append new section to end of content manager
         if (!lastSection) {
             this.elem.appendChild(section);
         } else {
             general.insertAfter(section, lastSection);
         }
+
+
 
 
         contenteditableDiv.focus();
@@ -188,13 +190,9 @@ export default class core {
         })
     }
 
-    init = () => {
-        this.createSection();
-    }
 
+    init = () => this.createSection();
 
-    getData = () => {
-        return this.data;
-    }
+    data = () => this.data;
 
 }
