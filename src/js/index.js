@@ -15,6 +15,7 @@ let elem = null;
 
 
 export class ContentManager extends Emitter {
+    
     constructor(options = {}) {
         super();
 
@@ -23,8 +24,11 @@ export class ContentManager extends Emitter {
         if (defaults.target) {
 
             this.elem = document.querySelector(defaults.target);
+            
+            // for test
             this.elem.dataset["time"] = new Date().getTime();
             this.elem.dataset["name"] = "ali";
+            
             this.elem.classList.add("cm-wrapper");
             
             this.core = new core(this.elem, defaults);
@@ -38,9 +42,7 @@ export class ContentManager extends Emitter {
     }
 
 
-    getData = () =>{
-        return this.core.getData();
-    }
+    getData = () => this.core.getData();
 
 }
 

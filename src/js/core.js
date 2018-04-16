@@ -1,9 +1,25 @@
 import general from './general-functions'
-import tippy from 'tippy.js'
+import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 
 var createSection = require("./templates/create-section.handlebars");
-var tooltip = require("./templates/tooltip.handlebars");
+
+
+
+
+
+const ContentType = general.toEnum({
+    TEXT: "text",
+    IMAGE: "image",
+    VIDEO: "video",
+    AUDIO: "audio",
+    LINK: "link",
+    CUSTOM1: "cusom-1",
+    CUSTOM2: "cusom-2",
+    CUSTOM3: "cusom-3",
+    CUSTOM4: "cusom-4",
+    CUSTOM5: "cusom-5",
+});
 
 
 export default class core {
@@ -25,8 +41,12 @@ export default class core {
 
         let thisObject = {
             id: id,
-            type: "",
-            content: ""
+            contentRow: ContentType.TEXT,
+            field1: "",
+            field2: "",
+            field3: "",
+            field4: "",
+            field5: "",
         }
 
         this.data.push(thisObject);
@@ -95,35 +115,7 @@ export default class core {
                 buttonControl.classList.add("hidden");
             }
 
-            thisClass.updateContent(contenteditableDiv);
-        });
-
-        // handler show/hide tooltip content edit
-        contenteditableDiv.addEventListener('mouseup', function (event) {
-            let selection;
-
-            if (window.getSelection) {
-                selection = window.getSelection();
-            } else if (document.selection) {
-                selection = document.selection.createRange();
-            }
-
-            if (selection.toString().length) {
-                let span = document.createElement('span');
-                span.textContent = selection.toString();
-                // span.setAttribute('title', "textContent");
-
-                let range = selection.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(span);
-
-                // alert(selection.toString())
-
-                // selection.toString() !== '' && alert('"' + selection.toString() + '" was selected at ' + event.pageX + '/' + event.pageY);
-                let a = document.createElement('div');
-                a.innerHTML = tooltip();
-
-            }
+            thisClass.updateContentText(contenteditableDiv);
         });
 
         /************************ end event listener ************************/
@@ -159,6 +151,7 @@ export default class core {
         btnsAdd.forEach((btnAdd) => {
             btnAdd.addEventListener("click", (event) => {
                 console.log(event.currentTarget.dataset["type"]);
+                thisClass.updateContentRow(contenteditableDiv, event.currentTarget.dataset["type"]);
             })
         });
 
@@ -171,20 +164,37 @@ export default class core {
 
 
 
-
+        var elements = document.querySelectorAll('.cm-content'),
+            editor = new mediumEditor(elements, {
+                disableReturn: true,
+                disableDoubleReturn: true,
+                disableExtraSpaces: true
+            });
         contenteditableDiv.focus();
 
 
     }
 
 
-    updateContent = (elem) => {
+    updateContentRow = (elem, type) => {
+        const id = elem.parentNode.id;
+        const isExist = general.isExistInEnum(ContentType, type);
+        if (isExist) {
+            map(this.data, function (item) {
+                if (item.id === id)
+                    item.contentRow = type;
+                return item;
+            });
+        }
+    }
+
+    updateContentText = (elem) => {
         const id = elem.parentNode.id;
         const content = elem.innerHTML;
 
         map(this.data, function (item) {
             if (item.id === id)
-                item.content = content;
+                item.field1 = content;
 
             return item;
         })
@@ -193,6 +203,6 @@ export default class core {
 
     init = () => this.createSection();
 
-    data = () => this.data;
+    getData = () => this.data;
 
 }

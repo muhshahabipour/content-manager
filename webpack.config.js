@@ -104,6 +104,7 @@ module.exports = env => {
         resolve: {
             alias: {
                 handlebars: 'handlebars/dist/handlebars.min.js',
+                'medium-editor': 'medium-editor/dist/js/medium-editor.min.js',
             }
         }
     }
