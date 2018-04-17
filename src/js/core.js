@@ -62,10 +62,12 @@ export default class core {
 
     }
 
+
     watch = (event) => {
         // console.log("event", event);
         // console.log("detail", event.detail);
     }
+
 
     createSection = (lastSection) => {
         let thisClass = this;
@@ -104,10 +106,14 @@ export default class core {
         /************************ start event listener ************************/
 
         // handler remove section
-        contenteditableDiv.addEventListener("keypress", (event) => {
+        contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
+            thisClass.updateContentRow(contenteditableDiv, ContentType.TEXT)
+
             let keycode = (event.charCode ? event.charCode : event.which);
-            if (keycode === 8) {
+            if (keycode === 8) {                
                 let inn = contenteditableDiv.innerText.trim();
+                console.info(contenteditableDiv.innerHTML)
+                console.info(contenteditableDiv.innerText)
                 if (inn === "" || !inn.length || inn === "\r\n" || inn === "\n") {
                     // remove section
                     event.preventDefault();
@@ -131,7 +137,6 @@ export default class core {
                 general.setEndOfContenteditable(contenteditableDiv);
 
             } else if (keycode === 13) {
-
                 // new section
                 event.preventDefault();
                 thisClass.createSection(section);
@@ -143,6 +148,7 @@ export default class core {
             let buttonControl = document.querySelector("#cm-btn-control-" + contenteditableDiv.parentNode.id);
             if (!this.innerText.trim().length) {
                 buttonControl.classList.remove("hidden");
+                
             } else {
                 buttonControl.classList.add("hidden");
             }
@@ -170,18 +176,6 @@ export default class core {
         // select buttons type management wrapper
         let createList = btnControlDiv.querySelector(".create-section-list");
 
-        // handle click on button create
-        // btnCreate.addEventListener("click", () => {
-        // createList.classList.toggle('show');
-        // btnCreate.classList.toggle('close');
-        // });
-
-
-
-
-
-
-
         // select add item buttons
         let btnsAdd = btnControlDiv.querySelectorAll("[data-action='add']");
 
@@ -189,14 +183,8 @@ export default class core {
         btnsAdd.forEach((btnAdd) => {
             btnAdd.addEventListener("click", (event) => {
                 let type = event.currentTarget.dataset["type"];
-                console.log(type);
                 if (general.isExistInEnum(AccessFileManagerType, type)) {
                     $('#fileManagerModal').modal('show');
-                } else if (ContentType.LINK === type) {
-                    var link = prompt("آدرس لینک را بنویسید", "");
-                    if (link != null) {
-                        alert("your link is : " + link)
-                    }
                 }
                 thisClass.updateContentRow(contenteditableDiv, type);
             })
@@ -243,6 +231,7 @@ export default class core {
         }
     }
 
+
     updateContentText = (elem) => {
         const id = elem.parentNode.id;
         const content = elem.innerHTML;
@@ -285,6 +274,7 @@ export default class core {
 
         this.createSection();
     }
+
 
     getData = () => this.data;
 
