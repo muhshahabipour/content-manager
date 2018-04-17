@@ -1,0 +1,42 @@
+.fm-card {
+  // direction: rtl;
+  background: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items : center;
+  margin-bottom: 24px;
+  border-radius: 4px;
+  border: 1px solid #dddddd;
+  box-shadow : 1px 2px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.fm-detail-box {
+  flex: 1;
+  max-width: 24px;
+  margin: 0 0 0 8px;
+}
+
+.fm-detail-btn {
+  background: transparent;
+  border: none;
+  color: #8F8F8F;
+  padding: 0;
+}
+
+.fm-name-box {
+  flex: 2;
+  @include truncate();
+  padding: 14px 0;
+  direction: ltr;
+}
+
+.fm-icon-box {
+  flex: 1;
+  background: #f5f5f5;
+  border-radius: 4px 0 0 4px;
+  max-width: 52px;
+  padding: 14px;
+  color: #8F8F8F;
+  margin: 0 8px 0 0 ;
+}

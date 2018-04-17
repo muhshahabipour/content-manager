@@ -1,8 +1,12 @@
 import general from './general-functions'
+import createSectionEventHandler from './create-section'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 
 var createSection = require("./templates/create-section.handlebars");
+var fileManagerModal = require("./templates/filemanager.handlebars");
+var fileManagerItemFile = require("./templates/item-file.handlebars");
+var fileManagerItemFolder = require("./templates/item-folder.handlebars");
 
 
 
@@ -22,12 +26,40 @@ const ContentType = general.toEnum({
 });
 
 
+const AccessFileManagerType = general.toEnum({
+    IMAGE: "image",
+    VIDEO: "video",
+    AUDIO: "audio",
+});
+
+
 export default class core {
 
     constructor(elem, defaults) {
         this.elem = elem;
         this.defaults = defaults;
         this.data = [];
+
+        var b = document.createElement('div')
+        b.innerHTML = fileManagerModal({});
+        document.body.appendChild(b);
+
+
+        $('#fileManagerModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var recipient = "dasdasa";
+
+            var modal = $(this)
+            modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({}));
+            modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({}));
+        })
+
+        $('#fileManagerModal').on('hide.bs.modal', function (event) {
+            var modal = $(this)
+            modal.find('.modal-body .fm-wrapper').html("");
+        })
+
+
     }
 
     watch = (event) => {
@@ -139,19 +171,34 @@ export default class core {
         let createList = btnControlDiv.querySelector(".create-section-list");
 
         // handle click on button create
-        btnCreate.addEventListener("click", () => {
-            createList.classList.toggle('show');
-            btnCreate.classList.toggle('close');
-        });
+        // btnCreate.addEventListener("click", () => {
+        // createList.classList.toggle('show');
+        // btnCreate.classList.toggle('close');
+        // });
+
+
+
+
+
+
 
         // select add item buttons
         let btnsAdd = btnControlDiv.querySelectorAll("[data-action='add']");
 
-        // handle type managment button click
+        // handle type management button click
         btnsAdd.forEach((btnAdd) => {
             btnAdd.addEventListener("click", (event) => {
-                console.log(event.currentTarget.dataset["type"]);
-                thisClass.updateContentRow(contenteditableDiv, event.currentTarget.dataset["type"]);
+                let type = event.currentTarget.dataset["type"];
+                console.log(type);
+                if (general.isExistInEnum(AccessFileManagerType, type)) {
+                    $('#fileManagerModal').modal('show');
+                } else if (ContentType.LINK === type) {
+                    var link = prompt("آدرس لینک را بنویسید", "");
+                    if (link != null) {
+                        alert("your link is : " + link)
+                    }
+                }
+                thisClass.updateContentRow(contenteditableDiv, type);
             })
         });
 
@@ -168,10 +215,18 @@ export default class core {
             editor = new mediumEditor(elements, {
                 disableReturn: true,
                 disableDoubleReturn: true,
-                disableExtraSpaces: true
+                disableExtraSpaces: true,
+                placeholder: false,
+                anchor: {
+                    linkValidation: false,
+                    placeholderText: 'آدرس لینک خود را تایپ کنید',
+                    targetCheckbox: false,
+                    targetCheckboxText: 'باز شدن در پنجره جدید'
+                }
             });
         contenteditableDiv.focus();
 
+        createSectionEventHandler.init();
 
     }
 
@@ -201,7 +256,35 @@ export default class core {
     }
 
 
-    init = () => this.createSection();
+    init = () => {
+
+
+        document.addEventListener("click", (event) => {
+            // console.log(event.target.parentNode.parentNode.length);
+            if (event.target.classList.contains('btn-create')) {
+
+                event.target.parentNode.querySelector('.create-section-list').classList.toggle('show');
+                event.target.classList.toggle('close');
+
+                // } else if (event.target.parentNode.parentNode.classList.contains("create-section-list")) {
+                // console.log("Asshole");
+            } else {
+                let allSectionButtonCreate = document.querySelectorAll('.btn-create')
+                allSectionButtonCreate.forEach((buttonCreate) => {
+                    buttonCreate.classList.remove('close');
+                });
+                let allSectionButtonList = document.querySelectorAll('.create-section-list')
+                allSectionButtonList.forEach((buttonList) => {
+                    buttonList.classList.remove('show');
+                });
+            }
+        });
+
+
+
+
+        this.createSection();
+    }
 
     getData = () => this.data;
 

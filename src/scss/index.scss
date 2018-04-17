@@ -8,9 +8,13 @@ $drilldown-disable-link-color: #656565;
 $drilldown-disable-hover-link-color: #656565;
 $drilldown-disable-focus-link-color: #656565;
 $drilldown-disable-active-link-color: #656565;
+
+@import "filemanager";
+
 // ===========================================================
 body {
     font-family: Roboto, IRANSans, sans-serif !important; // direction: rtl;
+    min-height: 100vh;
 }
 
 .hidden {
@@ -152,7 +156,6 @@ body {
 
 .custom-icons {
     font-style: normal;
-
     &.ci-18 {
         font-size: 18px;
     }
@@ -161,6 +164,21 @@ body {
     }
 }
 
-
 @import '../../node_modules/medium-editor/dist/css/medium-editor.min.css';
 @import '../../node_modules/medium-editor/dist/css/themes/beagle.min.css';
+.flexbox {
+    display: flex;
+    &.flexbox-align-center {
+        align-items: center;
+    }
+    &.flexbox-just-spacebetween {
+        justify-content: space-between;
+    }
+}
+
+.modal-body{
+    // max-height: calc(100vh - 200px);  with footer
+    max-height: calc(100vh - 128px);
+    // height: calc(100vh - 200px); with footer
+    height: 512px;
+}

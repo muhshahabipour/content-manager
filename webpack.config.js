@@ -105,6 +105,8 @@ module.exports = env => {
             alias: {
                 handlebars: 'handlebars/dist/handlebars.min.js',
                 'medium-editor': 'medium-editor/dist/js/medium-editor.min.js',
+                $: 'jquery/dist/jquery.slim.min.js',
+                bootstrap: 'bootstrap/dist/bootstrap.min.js'
             }
         }
     }
