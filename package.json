@@ -1,6 +1,6 @@
 {
   "name": "content-manager",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/contentManager.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "webpack --env.NODE_ENV=local --env.production --progress"
   },
   "author": "muhshahabipour",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.3",
