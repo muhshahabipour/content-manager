@@ -1,5 +1,5 @@
 import general from './general-functions'
-import createSectionEventHandler from './create-section'
+import fileManager from './filemanager'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 
@@ -49,10 +49,18 @@ export default class core {
             var button = $(event.relatedTarget);
             var recipient = "dasdasa";
 
+
+            // TODO: GET File/Folder List
+
             var modal = $(this)
             modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({}));
             modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({}));
+
+            const filemanager = new fileManager(modal);
+            // fileManager.init();
+
         })
+
 
         $('#fileManagerModal').on('hide.bs.modal', function (event) {
             var modal = $(this)
@@ -214,7 +222,6 @@ export default class core {
             });
         contenteditableDiv.focus();
 
-        createSectionEventHandler.init();
 
     }
 
