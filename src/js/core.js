@@ -47,10 +47,22 @@ export default class core {
 
         $('#fileManagerModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var recipient = "dasdasa";
-
 
             // TODO: GET File/Folder List
+            $.ajax({
+                    url: 'http://localhost:8081/panel/file/list',
+                    data: {
+                        nextPagekey: '',
+                        path: '/'
+                    }
+                })
+                .then(function (response) {
+                    console.info(response);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+
 
             var modal = $(this)
             modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({}));
@@ -118,7 +130,7 @@ export default class core {
             thisClass.updateContentRow(contenteditableDiv, ContentType.TEXT)
 
             let keycode = (event.charCode ? event.charCode : event.which);
-            if (keycode === 8) {                
+            if (keycode === 8) {
                 let inn = contenteditableDiv.innerText.trim();
                 console.info(contenteditableDiv.innerHTML)
                 console.info(contenteditableDiv.innerText)
@@ -156,7 +168,7 @@ export default class core {
             let buttonControl = document.querySelector("#cm-btn-control-" + contenteditableDiv.parentNode.id);
             if (!this.innerText.trim().length) {
                 buttonControl.classList.remove("hidden");
-                
+
             } else {
                 buttonControl.classList.add("hidden");
             }

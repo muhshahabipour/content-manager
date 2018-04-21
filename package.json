@@ -1,5 +1,5 @@
 {
-  "name": "content-manager",
+  "name": "vaslapp-content-manager",
   "version": "1.0.5",
   "description": "",
   "main": "dist/contentManager.js",
@@ -33,6 +33,7 @@
     "webpack-dev-server": "^3.0.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.1.0",
     "jquery": "^3.3.1",
     "medium-editor": "^5.23.3"
