@@ -9,9 +9,9 @@ let defaults = {
     target: '',
     placeholder: '',
     editor: false,
-    ajax: { // for get path
-        url: 'getpath.php',
-        method: 'POST',
+    ajax: { // for get files
+        url: 'path.php',
+        method: "POST",
         data: {},
         headers: {}
     }

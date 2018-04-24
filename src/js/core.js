@@ -51,11 +51,13 @@ export default class core {
         $('#fileManagerModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
 
+            var modal = $(this)
+
             // TODO: GET File/Folder List
             $.ajax({
                     url: defaults.ajax.url,
                     method: defaults.ajax.method,
-                    
+
                     data: extend({
                         nextPagekey: '',
                         path: '/'
@@ -64,15 +66,21 @@ export default class core {
                 })
                 .then(function (response) {
                     console.info(response);
+                    if (response.status === 1) {
+                        response.directoryInfo.forEach((item) => {
+                            if (item.isDirectory) {
+                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({}));
+                            } else {
+                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({name: name, path: item.linkHost + item.linkPath}));
+                            }
+
+                        });
+                    }
+
                 })
                 .catch(function (error) {
                     console.error(error);
                 });
-
-
-            var modal = $(this)
-            modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({}));
-            modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({}));
 
             const filemanager = new fileManager(modal);
             // fileManager.init();
