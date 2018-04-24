@@ -195,7 +195,7 @@ export default class core {
 
 
         // select button create
-        let btnCreate = btnControlDiv.querySelector(".btn-create");
+        // let btnCreate = btnControlDiv.querySelector("[data-trget='toggleList']");
 
         // select buttons type management wrapper
         let createList = btnControlDiv.querySelector(".create-section-list");
@@ -281,7 +281,7 @@ export default class core {
                 // } else if (event.target.parentNode.parentNode.classList.contains("create-section-list")) {
                 // console.log("Asshole");
             } else {
-                let allSectionButtonCreate = document.querySelectorAll('.btn-create')
+                let allSectionButtonCreate = document.querySelectorAll("[data-trget='toggleList']")
                 allSectionButtonCreate.forEach((buttonCreate) => {
                     buttonCreate.classList.remove('close');
                 });
