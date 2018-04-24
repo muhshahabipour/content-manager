@@ -2,6 +2,7 @@ import general from './general-functions'
 import fileManager from './filemanager'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
+import extend from 'lodash/extend'
 
 var createSection = require("./templates/create-section.handlebars");
 var fileManagerModal = require("./templates/filemanager.handlebars");
@@ -36,6 +37,8 @@ const AccessFileManagerType = general.toEnum({
 export default class core {
 
     constructor(elem, defaults) {
+        
+
         this.elem = elem;
         this.defaults = defaults;
         this.data = [];
@@ -50,11 +53,12 @@ export default class core {
 
             // TODO: GET File/Folder List
             $.ajax({
-                    url: 'http://localhost:8081/panel/file/list',
-                    data: {
+                    url: defaults.ajax.url,
+                    data: extend({
                         nextPagekey: '',
                         path: '/'
-                    }
+                    }, defaults.ajax.data),
+                    headers: defaults.ajax.headers
                 })
                 .then(function (response) {
                     console.info(response);

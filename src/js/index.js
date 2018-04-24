@@ -9,6 +9,12 @@ let defaults = {
     target: '',
     placeholder: '',
     editor: false,
+    ajax: { // for get path
+        url: 'getpath.php',
+        method: 'POST',
+        data: {},
+        headers: {}
+    }
 }
 
 let elem = null;
