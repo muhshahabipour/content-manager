@@ -55,6 +55,7 @@ export default class core {
             $.ajax({
                     url: defaults.ajax.url,
                     method: defaults.ajax.method,
+                    
                     data: extend({
                         nextPagekey: '',
                         path: '/'
