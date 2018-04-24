@@ -37,7 +37,7 @@ const AccessFileManagerType = general.toEnum({
 export default class core {
 
     constructor(elem, defaults) {
-        
+
 
         this.elem = elem;
         this.defaults = defaults;
@@ -54,6 +54,7 @@ export default class core {
             // TODO: GET File/Folder List
             $.ajax({
                     url: defaults.ajax.url,
+                    method: defaults.ajax.method,
                     data: extend({
                         nextPagekey: '',
                         path: '/'
