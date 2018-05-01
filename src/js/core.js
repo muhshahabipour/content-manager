@@ -51,10 +51,12 @@ export default class core {
         $('#fileManagerModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
 
+            console.log(button);
+
             var modal = $(this)
             const filemanager = new fileManager(modal);
 
-            // TODO: GET File/Folder List
+            // TODO: Optimize File/Folder List
             $.ajax({
                     url: defaults.ajax.url,
                     method: defaults.ajax.method,
