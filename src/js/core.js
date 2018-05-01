@@ -78,16 +78,13 @@ export default class core {
 
                         });
 
-                        fileManager.init();
+                        filemanager.init();
                     }
 
                 })
                 .catch(function (error) {
                     console.error(error);
                 });
-
-            
-            
 
         })
 
