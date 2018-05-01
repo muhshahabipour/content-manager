@@ -70,9 +70,9 @@ export default class core {
                         
                         response.directoryInfo.data.forEach((item) => {
                             if (item.isDirectory) {
-                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({}));
+                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
                             } else {
-                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({name: name, path: item.linkHost + item.linkPath}));
+                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({name: item.name, path: item.linkHost + item.linkPath}));
                             }
 
                         });
