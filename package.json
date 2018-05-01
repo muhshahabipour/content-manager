@@ -1,6 +1,6 @@
 {
   "name": "vaslapp-content-manager",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "",
   "main": "dist/contentManager.js",
   "scripts": {
