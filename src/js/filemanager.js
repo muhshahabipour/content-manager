@@ -11,8 +11,7 @@ export default class fileManager {
             item.addEventListener('click', (event) => {
                 console.log("isDirectory", event.target.dataset.isDirectory)
                 console.log("address", event.target.dataset.address)
-                // alert(event)
-                console.log(this.modal);
+                this.modal.modal("hide");
             })
         })
     }
