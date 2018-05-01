@@ -52,6 +52,7 @@ export default class core {
             var button = $(event.relatedTarget);
 
             var modal = $(this)
+            const filemanager = new fileManager(modal);
 
             // TODO: GET File/Folder List
             $.ajax({
@@ -76,6 +77,8 @@ export default class core {
                             }
 
                         });
+
+                        fileManager.init();
                     }
 
                 })
@@ -83,8 +86,8 @@ export default class core {
                     console.error(error);
                 });
 
-            const filemanager = new fileManager(modal);
-            // fileManager.init();
+            
+            
 
         })
 

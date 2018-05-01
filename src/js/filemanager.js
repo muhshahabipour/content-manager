@@ -2,10 +2,10 @@ export default class fileManager {
     modal = null;
 
     constructor(modal = null) {
-        console.log(modal)
-
         this.modal = modal;
+    }
 
+    init = () => {
         var fileItems = document.querySelectorAll("item-fm-file");
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
@@ -15,10 +15,6 @@ export default class fileManager {
                 // alert(event)
             })
         })
-    }
-
-    init = () => {
-
     }
 
 }
