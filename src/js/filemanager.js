@@ -10,8 +10,8 @@ export default class fileManager {
         let $modal = this.modal;
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
-                console.log("isDirectory", event.target.dataset.isDirectory)
-                console.log("address", event.target.dataset.address)
+                // console.log("isDirectory", event.target.dataset.isDirectory)
+                // console.log("address", event.target.dataset.address)
                 $modal.modal("hide");
             })
         })
