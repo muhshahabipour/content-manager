@@ -9,9 +9,8 @@ export default class fileManager {
         var fileItems = document.querySelectorAll(".item-fm-file");
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
-                console.log("event", event)
-                console.log("this", this)
-                console.log("dataset", this.dataset)
+                console.log("isDirectory", event.target.dataset.isDirectory)
+                console.log("address", event.target.dataset.address)
                 // alert(event)
             })
         })
