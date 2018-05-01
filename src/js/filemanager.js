@@ -1,7 +1,9 @@
 export default class fileManager {
     modal = null;
 
-    constructor(modal) {
+    constructor(modal = null) {
+        console.log(modal)
+
         this.modal = modal;
 
         var fileItems = document.querySelectorAll("item-fm-file");
