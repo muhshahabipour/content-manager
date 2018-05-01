@@ -6,7 +6,7 @@ export default class fileManager {
     }
 
     init = () => {
-        var fileItems = document.querySelectorAll("item-fm-file");
+        var fileItems = document.querySelectorAll(".item-fm-file");
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
                 console.log("event", event)
