@@ -12,6 +12,7 @@ export default class fileManager {
                 console.log("isDirectory", event.target.dataset.isDirectory)
                 console.log("address", event.target.dataset.address)
                 // alert(event)
+                console.log(this.modal);
             })
         })
     }
