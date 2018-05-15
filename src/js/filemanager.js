@@ -17,7 +17,7 @@ export default class fileManager {
                 console.log("H03")
                 $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
                 coreClass.updateContentText(document.getElementById('cm-content-' + button.data("sectionId")));
-                console.log("H04")
+                console.log("H07")
                 $modal.modal("hide");
             })
         })
