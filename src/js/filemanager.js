@@ -1,3 +1,5 @@
+
+
 export default class fileManager {
     modal = null;
 
@@ -5,17 +7,17 @@ export default class fileManager {
         this.modal = modal;
     }
 
-    init = (button) => {
+    init = (button, coreClass) => {
         var fileItems = document.querySelectorAll(".item-fm-file");
         let $modal = this.modal;
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
                 
-                // console.log("isDirectory", event.target.dataset.isDirectory)
-                console.log("address", event.target.dataset.address);
-                console.log("sectionId", button.data("sectionId"));
-                $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
+                // console.log("address", event.target.dataset.address);
+                // console.log("sectionId", button.data("sectionId"));
 
+                $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
+                coreClass.updateContentText(document.getElementById('#cm-content-' + button.data("sectionId")));
                 $modal.modal("hide");
             })
         })

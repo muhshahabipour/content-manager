@@ -43,6 +43,8 @@ export default class core {
         this.defaults = defaults;
         this.data = [];
 
+        let thisClass = this;
+
         var b = document.createElement('div')
         b.innerHTML = fileManagerModal({});
         document.body.appendChild(b);
@@ -81,7 +83,7 @@ export default class core {
 
                         });
 
-                        filemanager.init($button);
+                        filemanager.init($button, thisClass);
                     }
 
                 })
