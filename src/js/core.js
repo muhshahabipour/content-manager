@@ -51,9 +51,9 @@ export default class core {
         $('#fileManagerModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
 
-            console.log("target", event.target);
-            console.log("currentTarget", event.currentTarget);
-            console.log("relatedTarget", event.relatedTarget);
+            console.log("target1", event.target);
+            console.log("currentTarget1", event.currentTarget);
+            console.log("relatedTarget1", event.relatedTarget);
 
             var modal = $(this)
             const filemanager = new fileManager(modal);
