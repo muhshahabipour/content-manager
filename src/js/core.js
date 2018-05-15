@@ -10,9 +10,6 @@ var fileManagerItemFile = require("./templates/item-file.handlebars");
 var fileManagerItemFolder = require("./templates/item-folder.handlebars");
 
 
-
-
-
 const ContentType = general.toEnum({
     TEXT: "text",
     IMAGE: "image",
@@ -83,7 +80,7 @@ export default class core {
 
                         });
 
-                        filemanager.init($button);
+                        filemanager.init($button, thisClass);
                     }
 
                 })

@@ -1,5 +1,3 @@
-import coreClass from "./core";
-
 export default class fileManager {
     modal = null;
 
@@ -7,7 +5,7 @@ export default class fileManager {
         this.modal = modal;
     }
 
-    init = (button) => {
+    init = (button, coreClass) => {
         var fileItems = document.querySelectorAll(".item-fm-file");
         let $modal = this.modal;
         fileItems.forEach((item) => {
