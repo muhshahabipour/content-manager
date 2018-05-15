@@ -51,6 +51,7 @@ export default class core {
         $('#fileManagerModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
 
+            console.log(button.data());
             console.log("target", event.target);
             console.log("currentTarget", event.currentTarget);
             console.log("relatedTarget", event.relatedTarget);
