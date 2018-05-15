@@ -65,7 +65,7 @@ export default class core {
                     headers: defaults.ajax.headers
                 })
                 .then(function (response) {
-                    console.info(response);
+                    // console.info(response);
                     if (response.status === 1) {
 
                         response.directoryInfo.data.forEach((item) => {
@@ -267,12 +267,8 @@ export default class core {
 
 
     updateContentText = (elem) => {
-        console.log("H04");
         const id = elem.parentNode.id;
-        console.log("H05");
         const content = elem.innerHTML;
-        console.log("H06");
-        let a = 1;
         map(this.data, function (item) {
             if (item.id === id)
                 item.field1 = content;

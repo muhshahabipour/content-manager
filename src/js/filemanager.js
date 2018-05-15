@@ -12,10 +12,10 @@ export default class fileManager {
             item.addEventListener('click', (event) => {
                 // console.log("address", event.target.dataset.address);
                 // console.log("sectionId", button.data("sectionId"));
-                console.log("H03")
                 $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
                 coreClass.updateContentText(document.getElementById('cm-content-' + button.data("sectionId")));
-                console.log("H07")
+                let buttonCtrl = document.getElementById('cm-btn-control-' + button.data("sectionId"));
+                buttonCtrl.classLis.add("hidden");
                 $modal.modal("hide");
             })
         })
