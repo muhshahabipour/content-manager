@@ -83,7 +83,7 @@ export default class core {
 
                         });
 
-                        filemanager.init($button, thisClass);
+                        filemanager.init($button);
                     }
 
                 })
