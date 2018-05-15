@@ -11,15 +11,15 @@ export default class fileManager {
         var fileItems = document.querySelectorAll(".item-fm-file");
         let $modal = this.modal;
         console.log("H01")
-        console.log("H02", coreClass)
+        console.log("H02")
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
                 
                 // console.log("address", event.target.dataset.address);
                 // console.log("sectionId", button.data("sectionId"));
-                console.log("H03", coreClass)
+                console.log("H03")
                 $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
-                coreClass.updateContentText(document.getElementById('#cm-content-' + button.data("sectionId")));
+                coreClass.updateContentText(document.getElementById('cm-content-' + button.data("sectionId")));
                 console.log("H04", coreClass)
                 $modal.modal("hide");
             })
