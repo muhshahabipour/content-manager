@@ -49,12 +49,7 @@ export default class core {
 
 
         $('#fileManagerModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-
-            console.log("target123", event.target);
-            console.log("currentTarget123", event.currentTarget);
-            console.log("relatedTarget123", event.relatedTarget);
-
+            var $button = $(event.relatedTarget);
 
             var modal = $(this)
             const filemanager = new fileManager(modal);
@@ -86,7 +81,7 @@ export default class core {
 
                         });
 
-                        filemanager.init(button);
+                        filemanager.init($button);
                     }
 
                 })
