@@ -14,6 +14,8 @@ export default class fileManager {
                 // console.log("isDirectory", event.target.dataset.isDirectory)
                 console.log("address", event.target.dataset.address);
                 console.log("sectionId", button.data("sectionId"));
+                $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
+
                 $modal.modal("hide");
             })
         })
