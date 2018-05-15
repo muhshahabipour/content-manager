@@ -3,9 +3,6 @@ export default class fileManager {
 
     constructor(modal = null) {
         this.modal = modal;
-
-
-        
     }
 
     init = (button) => {
