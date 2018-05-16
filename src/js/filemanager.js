@@ -14,7 +14,7 @@ export default class fileManager {
                 // console.log("sectionId", button.data("sectionId"));
                 $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
                 coreClass.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
-                let buttonCtrl = document.getElementById('cm-btn-control-' + button.data("sectionId"));
+                let buttonCtrl = document.querySelector('#cm-btn-control-' + button.data("sectionId"));
                 buttonCtrl.classLis.add("hidden");
                 $modal.modal("hide");
             })
