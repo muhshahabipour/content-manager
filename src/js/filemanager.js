@@ -13,7 +13,7 @@ export default class fileManager {
                 // console.log("address", event.target.dataset.address);
                 // console.log("sectionId", button.data("sectionId"));
                 $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
-                coreClass.updateContentText(document.getElementById('cm-content-' + button.data("sectionId")));
+                coreClass.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
                 let buttonCtrl = document.getElementById('cm-btn-control-' + button.data("sectionId"));
                 buttonCtrl.classLis.add("hidden");
                 $modal.modal("hide");

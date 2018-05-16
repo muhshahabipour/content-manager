@@ -9,6 +9,11 @@ var fileManagerModal = require("./templates/filemanager.handlebars");
 var fileManagerItemFile = require("./templates/item-file.handlebars");
 var fileManagerItemFolder = require("./templates/item-folder.handlebars");
 
+var imageTemplate = require("./templates/image-template.handlebars");
+var videoTemplate = require("./templates/video-template.handlebars");
+var soundTemplate = require("./templates/sound-template.handlebars");
+
+
 
 const ContentType = general.toEnum({
     TEXT: "text",
@@ -273,6 +278,32 @@ export default class core {
             if (item.id === id)
                 item.field1 = content;
 
+            return item;
+        })
+    }
+
+    updateContentObject = (elem, type) => {
+        const id = elem.parentNode.id;
+        const content = elem.innerHTML;
+        map(this.data, function (item) {
+            if (item.id === id) {
+                item.field2 = content;
+
+                if (AccessFileManagerType.IMAGE === type) {
+                    item.field1 = imageTemplate({
+                        url: content
+                    });
+                } else if (AccessFileManagerType.VIDEO === type) {
+                    item.field1 = videoTemplate({
+                        url: content
+                    });
+                } else if (AccessFileManagerType.AUDIO === type) {
+                    item.field1 = soundTemplate({
+                        url: content
+                    });
+                }
+                elem.innerHTML = item.field1;
+            }
             return item;
         })
     }
