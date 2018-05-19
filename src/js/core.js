@@ -314,7 +314,7 @@ export default class core {
 
         document.addEventListener("click", (event) => {
             // console.log(event.target.parentNode.parentNode.length);
-            if (event.target.classList.contains('btn-create')) {
+            if (event.target.classList.contains('btn-create') || event.target.classList.contains('btn-create-text')) {
 
                 event.target.parentNode.querySelector('.create-section-list').classList.toggle('show');
                 event.target.classList.toggle('close');
