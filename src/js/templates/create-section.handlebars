@@ -7,13 +7,13 @@
     <ul id="create-sections-{{id}}" class="create-section-list">
         {{!-- <li><button type="button" data-type="text" data-action="add"><i class="material-icons">add</i></button></li> --}}
         <li>
-            <button type="button" data-type="video" data-action="add" data-toggle="modal" data-target="#fileManagerModal" data-section-id="{{id}}"><i class="material-icons">movie_creation</i></button>
+            <button type="button" data-type="video" data-action="add" id="btn-add-video-{{id}}" data-toggle="modal" data-target="#fileManagerModal" data-section-id="{{id}}"><label for="btn-add-video-{{id}}" class="material-icons">movie_creation</label></button>
         </li>
         <li>
-            <button type="button" data-type="audio" data-action="add" data-toggle="modal" data-target="#fileManagerModal" data-section-id="{{id}}"><i class="material-icons">audiotrack</i></button>
+            <button type="button" data-type="audio" data-action="add" id="btn-add-audio-{{id}}" data-toggle="modal" data-target="#fileManagerModal" data-section-id="{{id}}"><label for="btn-add-audio-{{id}}" class="material-icons">audiotrack</label></button>
         </li>
         <li>
-            <button type="button" data-type="image" data-action="add" data-toggle="modal" data-target="#fileManagerModal" data-section-id="{{id}}"><i class="material-icons">photo</i></button>
+            <button type="button" data-type="image" data-action="add" id="btn-add-image-{{id}}" data-toggle="modal" data-target="#fileManagerModal" data-section-id="{{id}}"><label for="btn-add-image-{{id}}" class="material-icons">photo</label></button>
         </li>
     </ul>
 </div>
