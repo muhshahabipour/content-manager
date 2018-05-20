@@ -1,11 +1,13 @@
 import general from './general-functions'
 import fileManager from './filemanager'
+import link from './link'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 import extend from 'lodash/extend'
 
 var createSection = require("./templates/create-section.handlebars");
-var fileManagerModal = require("./templates/filemanager.handlebars");
+var modalFileManager = require("./templates/modal-filemanager.handlebars");
+var modalURL = require("./templates/modal-url.handlebars");
 var fileManagerItemFile = require("./templates/item-file.handlebars");
 var fileManagerItemFolder = require("./templates/item-folder.handlebars");
 
@@ -33,13 +35,13 @@ const AccessFileManagerType = general.toEnum({
     IMAGE: "image",
     VIDEO: "video",
     AUDIO: "audio",
+    LINK: "link",
 });
 
 
 export default class core {
 
     constructor(elem, defaults) {
-
 
         this.elem = elem;
         this.defaults = defaults;
@@ -48,8 +50,11 @@ export default class core {
         let thisClass = this;
 
         var b = document.createElement('div')
-        b.innerHTML = fileManagerModal({});
+        b.innerHTML = modalFileManager({});
         document.body.appendChild(b);
+        var c = document.createElement('div')
+        c.innerHTML = modalURL({});
+        document.body.appendChild(c);
 
 
         $('#fileManagerModal').on('show.bs.modal', function (event) {
@@ -86,6 +91,7 @@ export default class core {
                         });
 
                         filemanager.init($button, thisClass);
+                        link.init($button, thisClass);
                     }
 
                 })
