@@ -111,9 +111,10 @@ export default class core {
     }
 
 
-    createSection = (lastSection) => {
+    createSection = (lastSection, value) => {
         let thisClass = this;
         const id = general.uuid();
+
 
         let thisObject = {
             id: id,
@@ -122,7 +123,20 @@ export default class core {
             field2: "",
             field3: "",
             field4: "",
-            field5: "",
+            field5: ""
+        }
+
+
+        if (value) {
+            thisObject = {
+                id: id,
+                contentRow: value.contentRow,
+                field1: value.field1,
+                field2: value.field2,
+                field3: value.field3,
+                field4: value.field4,
+                field5: value.field5
+            }
         }
 
         this.data.push(thisObject);
@@ -142,6 +156,8 @@ export default class core {
         contenteditableDiv.setAttribute("placeholder", this.defaults.placeholder || "write here...");
         contenteditableDiv.classList.add("cm-content");
         contenteditableDiv.id = "cm-content-" + id;
+
+        contenteditableDiv.innerHTML = thisObject.field1
 
         section.appendChild(contenteditableDiv);
 
@@ -282,6 +298,7 @@ export default class core {
         })
     }
 
+
     updateContentObject = (elem, type) => {
         const id = elem.parentNode.id;
         const content = elem.innerHTML;
@@ -341,5 +358,11 @@ export default class core {
 
 
     getData = () => this.data;
-
+    
+    setData = (data = []) => {
+        let thisClass = this;
+        data.forEach((item) => {
+            let lastElement = thisClass.createSection(lastElement, item)
+        });
+    }
 }
