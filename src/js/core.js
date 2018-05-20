@@ -316,8 +316,6 @@ export default class core {
             // console.log(event.target.parentNode.parentNode.length);
             if (event.target.classList.contains('btn-create') || event.target.classList.contains('btn-create-text')) {
 
-                var asdfsf = 1;
-
                 event.target.parentNode.querySelector('.create-section-list').classList.toggle('show');
                 event.target.classList.toggle('close');
 
