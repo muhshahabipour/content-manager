@@ -128,6 +128,7 @@ export default class core {
 
 
         if (value) {
+
             thisObject = {
                 id: id,
                 contentRow: value.contentRow,
@@ -270,7 +271,7 @@ export default class core {
             });
         contenteditableDiv.focus();
 
-
+        return contenteditableDiv;
     }
 
 
@@ -350,19 +351,25 @@ export default class core {
             }
         });
 
-
-
-
         this.createSection();
+    }
+
+    setData = (data = []) => {
+        let thisClass = this;
+
+        const sections = document.querySelectorAll('.cm-section');
+        sections.forEach((item) => {
+            item.remove();
+        })
+
+        data.forEach((item) => {
+            let lastElement = thisClass.createSection(lastElement, item);
+            general.triggerEvent(lastElement, 'input');
+        });
     }
 
 
     getData = () => this.data;
-    
-    setData = (data = []) => {
-        let thisClass = this;
-        data.forEach((item) => {
-            let lastElement = thisClass.createSection(lastElement, item)
-        });
-    }
+
+
 }
