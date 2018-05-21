@@ -1,3 +1,4 @@
+const urlRegExp = new RegExp("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$");
 export default class link {
     modal = null;
 
@@ -11,10 +12,17 @@ export default class link {
 
         submit.addEventListener('click', (event) => {
             const link = document.querySelector("#link");
-            console.log("link.value", link.value)
-            document.querySelector('#cm-content-' + button.data("sectionId")).innerHTML = link.value;
-            coreClass.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
-            $modal.modal("hide");
+            if (link.value && (link.value).match(urlRegExp)) {
+                document.querySelector('#cm-content-' + button.data("sectionId")).innerHTML = link.value;
+                coreClass.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
+                $modal.modal("hide");
+            } else {
+                if (!link.value) {
+                    console.warn("link not fill");
+                } else {
+                    console.warn("pattern not match");
+                }
+            }
         });
 
     }
