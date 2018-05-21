@@ -1,6 +1,6 @@
 import general from './general-functions'
 import fileManager from './filemanager'
-import link from './link'
+import linkManaager from './link'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 import extend from 'lodash/extend'
@@ -57,6 +57,21 @@ export default class core {
         document.body.appendChild(c);
 
 
+        $('#urlModal').on('show.bs.modal', function (event) {
+            var $button = $(event.relatedTarget);
+            var modal = $(this)
+            
+            const link = new linkManaager(modal);
+            link.init($button, thisClass);
+        });
+
+        $('#urlModal').on('hidden.bs.modal', function () {
+            var modal = $(this)
+            modal.find('.modal-body input').val("");
+        });
+
+
+
         $('#fileManagerModal').on('show.bs.modal', function (event) {
             var $button = $(event.relatedTarget);
 
@@ -91,7 +106,7 @@ export default class core {
                         });
 
                         filemanager.init($button, thisClass);
-                        link.init($button, thisClass);
+                        
                     }
 
                 })
@@ -100,7 +115,6 @@ export default class core {
                 });
 
         })
-
 
         $('#fileManagerModal').on('hide.bs.modal', function (event) {
             var modal = $(this)
@@ -325,7 +339,11 @@ export default class core {
                     item.field1 = soundTemplate({
                         url: content
                     });
+                } else if (AccessFileManagerType.LINK === type) {
+                    item.field1 = content
                 }
+
+                
                 elem.innerHTML = item.field1;
             }
             return item;

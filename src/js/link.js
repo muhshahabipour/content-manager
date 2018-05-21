@@ -10,11 +10,12 @@ export default class link {
         const submit = document.querySelector("#link-submit");
 
         submit.addEventListener('click', (event) => {
-            const link = document.querySelector("#link");    
-            $('#cm-content-' + button.data("sectionId")).html(link.value);
+            const link = document.querySelector("#link");
+            console.log("link.value", link.value)
+            document.querySelector('#cm-content-' + button.data("sectionId")).innerHTML = link.value;
             coreClass.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
             $modal.modal("hide");
         });
-        
+
     }
 }
