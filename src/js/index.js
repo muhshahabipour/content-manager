@@ -40,7 +40,7 @@ export class ContentManager extends Emitter {
             this.core = new core(this.elem, defaults);
             
             
-            this.core.init();
+            this.core.init(this.core.getId());
 
         } else {
             console.error("you must select element by options 'target'")

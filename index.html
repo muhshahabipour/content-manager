@@ -22,6 +22,7 @@
 
 
     <div class="col-xs-12 col-lg-6" style="margin:0 auto">
+      <div id="headlineManager"></div>
       <div id="contentManager"></div>
       <!-- <div id="contentManager2"></div> -->
     </div>
@@ -37,6 +38,12 @@
   <script>
     var contentManager = new ContentManager({
       target: "#contentManager",
+      placeholder: "اینجا تایپ کنید",
+      editor: true
+    });
+
+    var headlineManager = new ContentManager({
+      target: "#headlineManager",
       placeholder: "اینجا تایپ کنید",
       editor: true
     });

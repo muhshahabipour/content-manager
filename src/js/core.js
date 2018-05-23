@@ -46,6 +46,7 @@ export default class core {
         this.elem = elem;
         this.defaults = defaults;
         this.data = [];
+        this.id = general.uuid();
 
         let thisClass = this;
 
@@ -122,6 +123,7 @@ export default class core {
         })
 
 
+        return this;
     }
 
 
@@ -133,7 +135,8 @@ export default class core {
 
     createSection = (lastSection, value) => {
         let thisClass = this;
-        const id = general.uuid();
+        
+        const id = this.id
 
 
         let thisObject = {
@@ -351,7 +354,7 @@ export default class core {
     }
 
 
-    init = () => {
+    init = (id) => {
 
 
         document.addEventListener("click", (event) => {
@@ -392,8 +395,8 @@ export default class core {
         });
     }
 
-
     getData = () => this.data;
 
 
+    getId = () => this.id;
 }
