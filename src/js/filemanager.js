@@ -18,8 +18,10 @@ export default class fileManager {
                     let buttonCtrl = document.querySelector('#cm-btn-control-' + button.data("sectionId"));
                     buttonCtrl.classList.add("hidden");
                 } else {
+                    const dataset = event.target.dataset;
+                    console.log("dataset", dataset)
                     var customEvent = new CustomEvent("file.item.select", {
-                        dataset: event.target.dataset
+                        dataset: dataset
                     });
                     document.dispatchEvent(customEvent);
                 }
