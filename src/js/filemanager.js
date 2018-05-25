@@ -18,11 +18,9 @@ export default class fileManager {
                     let buttonCtrl = document.querySelector('#cm-btn-control-' + button.data("sectionId"));
                     buttonCtrl.classList.add("hidden");
                 } else {
-                    $('#' + button.id + ' + input').val();
-                    // Create the event
-                    var customEvent = new CustomEvent("file.item.select", event);
-
-                    // Dispatch/Trigger/Fire the event
+                    var customEvent = new CustomEvent("file.item.select", {
+                        dataset: event.target.dataset
+                    });
                     document.dispatchEvent(customEvent);
                 }
                 $modal.modal("hide");
