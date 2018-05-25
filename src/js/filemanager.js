@@ -20,9 +20,7 @@ export default class fileManager {
                 } else {
                     const dataset = event.target.dataset;
 
-                    $(document).trigger( "file.item.select", {
-                        dataset: dataset
-                    });
+                    $(document).trigger( "file.item.select", dataset);
                 }
                 $modal.modal("hide");
             })
