@@ -19,11 +19,10 @@ export default class fileManager {
                     buttonCtrl.classList.add("hidden");
                 } else {
                     const dataset = event.target.dataset;
-                    console.log("dataset", dataset)
-                    var customEvent = new CustomEvent("file.item.select", {
+
+                    $(document).trigger( "file.item.select", {
                         dataset: dataset
                     });
-                    document.dispatchEvent(customEvent);
                 }
                 $modal.modal("hide");
             })
