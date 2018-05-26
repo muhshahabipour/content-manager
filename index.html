@@ -36,16 +36,20 @@
   <script src="/contentManager.js"></script>
 
   <script>
-    var contentManager = new ContentManager({
-      target: "#contentManager",
-      placeholder: "اینجا تایپ کنید",
-      editor: true
-    });
+    // var contentManager = new ContentManager({
+    //   target: "#contentManager",
+    //   placeholder: "اینجا تایپ کنید",
+    //   editor: true
+    // });
 
     var headlineManager = new ContentManager({
       target: "#headlineManager",
       placeholder: "اینجا تایپ کنید",
-      editor: true
+      editor: true,
+      ajax: {
+        url: 'http://localhost:3004/images/',
+        method: "GET",
+      }
     });
 
     console.log(contentManager.getData());

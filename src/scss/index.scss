@@ -8,9 +8,7 @@ $drilldown-disable-link-color: #656565;
 $drilldown-disable-hover-link-color: #656565;
 $drilldown-disable-focus-link-color: #656565;
 $drilldown-disable-active-link-color: #656565;
-
 @import "filemanager";
-
 // ===========================================================
 body {
     font-family: Roboto, IRANSans, sans-serif !important; // direction: rtl;
@@ -19,6 +17,12 @@ body {
 
 .hidden {
     display: none;
+}
+
+.cm-wrapper {
+    label {
+        margin-bottom: 0;
+    }
 }
 
 // ===========================================================
@@ -62,7 +66,7 @@ body {
     right: 0; // display: none;
     .btn-create {
         border-radius: 50vh;
-        padding: 5px;
+        padding: 8px;
         border: 1px solid #656565;
         background-color: #ffffff;
         color: #656565;
@@ -110,7 +114,9 @@ body {
     li {
         display: inline;
         button {
-            padding: 8px 8px;
+            display: flex;
+            align-items: center;
+            padding: 8px;
             border: 1px solid #656565;
             color: #656565;
             background-color: #ffffff;
@@ -176,9 +182,8 @@ body {
     }
 }
 
-.modal-body{
+.modal-body {
     // max-height: calc(100vh - 200px);  with footer
-    max-height: calc(100vh - 128px);
-    // height: calc(100vh - 200px); with footer
+    max-height: calc(100vh - 128px); // height: calc(100vh - 200px); with footer
     height: 512px;
 }

@@ -14,6 +14,7 @@ var fileManagerItemFolder = require("./templates/item-folder.handlebars");
 var imageTemplate = require("./templates/image-template.handlebars");
 var videoTemplate = require("./templates/video-template.handlebars");
 var soundTemplate = require("./templates/sound-template.handlebars");
+var linkTemplate = require("./templates/link-template.handlebars");
 
 
 
@@ -61,7 +62,7 @@ export default class core {
         $('#urlModal').on('show.bs.modal', function (event) {
             var $button = $(event.relatedTarget);
             var modal = $(this)
-            
+
             const link = new linkManaager(modal);
             link.init($button, thisClass);
         });
@@ -107,7 +108,7 @@ export default class core {
                         });
 
                         filemanager.init($button, thisClass);
-                        
+
                     }
 
                 })
@@ -135,7 +136,7 @@ export default class core {
 
     createSection = (lastSection, value) => {
         let thisClass = this;
-        
+
         const id = this.id
 
 
@@ -285,12 +286,15 @@ export default class core {
                 disableDoubleReturn: true,
                 disableExtraSpaces: true,
                 placeholder: false,
-                anchor: {
-                    linkValidation: false,
-                    placeholderText: 'آدرس لینک خود را تایپ کنید',
-                    targetCheckbox: false,
-                    targetCheckboxText: 'باز شدن در پنجره جدید'
+                toolbar: {
+                    buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote'],
                 }
+                // anchor: {
+                    // linkValidation: false,
+                    // placeholderText: 'آدرس لینک خود را تایپ کنید',
+                    // targetCheckbox: false,
+                    // targetCheckboxText: 'باز شدن در پنجره جدید'
+                // }
             });
         contenteditableDiv.focus();
 
@@ -313,10 +317,13 @@ export default class core {
 
     updateContentText = (elem) => {
         const id = elem.parentNode.id;
-        const content = elem.innerHTML;
+        const contentHtml = elem.innerHTML;
+        const contentText = elem.innerText;
         map(this.data, function (item) {
-            if (item.id === id)
-                item.field1 = content;
+            if (item.id === id) {
+                item.field1 = contentHtml;
+                item.field1 = contentText;
+            }
 
             return item;
         })
@@ -343,10 +350,12 @@ export default class core {
                         url: content
                     });
                 } else if (AccessFileManagerType.LINK === type) {
-                    item.field1 = content
+                    item.field1 = linkTemplate({
+                        url: content
+                    });
                 }
 
-                
+
                 elem.innerHTML = item.field1;
             }
             return item;
