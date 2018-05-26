@@ -4,6 +4,7 @@ import linkManaager from './link'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 import extend from 'lodash/extend'
+import remove from 'lodash/remove'
 
 var createSection = require("./templates/create-section.handlebars");
 var modalFileManager = require("./templates/modal-filemanager.handlebars");
@@ -47,7 +48,7 @@ export default class core {
         this.elem = elem;
         this.defaults = defaults;
         this.data = [];
-        this.id = general.uuid();
+        this.id = "";
 
         let thisClass = this;
 
@@ -137,7 +138,7 @@ export default class core {
     createSection = (lastSection, value) => {
         let thisClass = this;
 
-        const id = this.id
+        const id = this.id = general.uuid();
 
 
         let thisObject = {
@@ -195,12 +196,11 @@ export default class core {
             let keycode = (event.charCode ? event.charCode : event.which);
             if (keycode === 8) {
                 let inn = contenteditableDiv.innerText.trim();
-                console.info(contenteditableDiv.innerHTML)
-                console.info(contenteditableDiv.innerText)
                 if (inn === "" || !inn.length || inn === "\r\n" || inn === "\n") {
                     // remove section
                     event.preventDefault();
                     if (this.elem.querySelectorAll('.cm-section').length > 1) {
+                        thisClass.removeDataItem(contenteditableDiv);
                         this.elem.removeChild(section);
                         let lastElement = this.elem.lastElementChild.querySelector('.cm-content')
                         general.setEndOfContenteditable(lastElement);
@@ -363,7 +363,16 @@ export default class core {
     }
 
 
-    init = (id) => {
+    removeDataItem = (elem) => {
+        const id = elem.parentNode.id;
+        this.data = remove(this.data, (item) => {
+            if (item.id !== id) {
+                return item;
+            }
+        })
+    }
+
+    init = () => {
 
 
         document.addEventListener("click", (event) => {
@@ -380,7 +389,6 @@ export default class core {
                 }
 
             } else {
-
                 let allSectionButtonCreate = document.querySelectorAll("button[data-action='toggleList']");
                 allSectionButtonCreate.forEach((buttonCreate) => {
                     buttonCreate.classList.remove('close');
@@ -410,7 +418,4 @@ export default class core {
     }
 
     getData = () => this.data;
-
-
-    getId = () => this.id;
 }
