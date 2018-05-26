@@ -63,10 +63,11 @@ body {
     z-index: 2;
     top: 0;
     left: 0;
-    right: 0; // display: none;
+    right: 0;
+
     .btn-create {
         border-radius: 50vh;
-        padding: 8px;
+        padding: 8px;        
         border: 1px solid #656565;
         background-color: #ffffff;
         color: #656565;
@@ -109,10 +110,10 @@ body {
     margin: 0;
     padding: 0 0 0 4px;
     &.show {
-        display: block;
+        display: flex;
     }
     li {
-        display: inline;
+        display: inline-block;
         button {
             display: flex;
             align-items: center;

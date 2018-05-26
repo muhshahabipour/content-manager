@@ -290,10 +290,10 @@ export default class core {
                     buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote'],
                 }
                 // anchor: {
-                    // linkValidation: false,
-                    // placeholderText: 'آدرس لینک خود را تایپ کنید',
-                    // targetCheckbox: false,
-                    // targetCheckboxText: 'باز شدن در پنجره جدید'
+                // linkValidation: false,
+                // placeholderText: 'آدرس لینک خود را تایپ کنید',
+                // targetCheckbox: false,
+                // targetCheckboxText: 'باز شدن در پنجره جدید'
                 // }
             });
         contenteditableDiv.focus();
@@ -368,19 +368,24 @@ export default class core {
 
         document.addEventListener("click", (event) => {
             // console.log(event.target.parentNode.parentNode.length);
-            if (event.target.classList.contains('btn-create') || event.target.classList.contains('btn-create-text')) {
+            if (event.target.dataset.action !== 'undefined' && event.target.dataset.action === 'toggleList') {
 
-                event.target.parentNode.querySelector('.create-section-list').classList.toggle('show');
-                event.target.classList.toggle('close');
+                let target = document.querySelector(event.target.dataset.target);
+                target.classList.toggle('show');
 
-                // } else if (event.target.parentNode.parentNode.classList.contains("create-section-list")) {
-                // console.log("Asshole");
+                if (event.target.classList.contains("btn-create-text")) {
+                    event.target.parentNode.classList.toggle('close')
+                } else {
+                    event.target.classList.toggle('close');
+                }
+
             } else {
-                let allSectionButtonCreate = document.querySelectorAll("[data-trget='toggleList']")
+
+                let allSectionButtonCreate = document.querySelectorAll("button[data-action='toggleList']");
                 allSectionButtonCreate.forEach((buttonCreate) => {
                     buttonCreate.classList.remove('close');
                 });
-                let allSectionButtonList = document.querySelectorAll('.create-section-list')
+                let allSectionButtonList = document.querySelectorAll('.create-section-list');
                 allSectionButtonList.forEach((buttonList) => {
                     buttonList.classList.remove('show');
                 });

@@ -1,47 +1,33 @@
 <div class="btn-create-wrapper">
-    <button type="button" class="btn-create" id="btn-create-{{id}}" data-trget="toggleList">
-        <label id="btn-create-text" class="material-icons md-18" for="btn-create-{{id}}" data-trget="toggleList">add</label>
+    <button type="button" class="btn-create" id="btn-create-{{id}}" data-target="#create-sections-{{id}}" data-action="toggleList">
+        <i class="material-icons md-18 btn-create-text" data-target="#create-sections-{{id}}" data-action="toggleList">add</i>
     </button>
 
 
-    <ul id="create-sections-{{id}}" class="create-section-list flexbox">
-        {{!--
+    <ul id="create-sections-{{id}}" class="create-section-list">
         <li>
-            <button type="button" data-type="text" data-action="add">
-                <i class="material-icons">add</i>
+            <button type="button" data-type="link" data-action="add" id="btn-add-link-{{id}}" data-toggle="modal" data-target="#urlModal"
+                data-section-id="{{id}}">
+                <i class="material-icons md-18">link</i>
             </button>
-        </li> --}}
-        <li>
-            <div style="display:inline-block">
-                <button type="button" data-type="link" data-action="add" id="btn-add-link-{{id}}" data-toggle="modal" data-target="#urlModal"
-                    data-section-id="{{id}}">
-                    <label for="btn-add-link-{{id}}" class="material-icons md-18">link</label>
-                </button>
-            </div>
         </li>
         <li>
-            <div style="display:inline-block">
-                <button type="button" data-type="video" data-action="add" id="btn-add-video-{{id}}" data-toggle="modal" data-target="#fileManagerModal"
-                    data-section-id="{{id}}">
-                    <label for="btn-add-video-{{id}}" class="material-icons md-18">movie_creation</label>
-                </button>
-            </div>
+            <button type="button" data-type="video" data-action="add" id="btn-add-video-{{id}}" data-toggle="modal" data-target="#fileManagerModal"
+                data-section-id="{{id}}">
+                <i class="material-icons md-18">movie_creation</i>
+            </button>
         </li>
         <li>
-            <div style="display:inline-block">
-                <button type="button" data-type="audio" data-action="add" id="btn-add-audio-{{id}}" data-toggle="modal" data-target="#fileManagerModal"
-                    data-section-id="{{id}}">
-                    <label for="btn-add-audio-{{id}}" class="material-icons md-18">audiotrack</label>
-                </button>
-            </div>
+            <button type="button" data-type="audio" data-action="add" id="btn-add-audio-{{id}}" data-toggle="modal" data-target="#fileManagerModal"
+                data-section-id="{{id}}">
+                <i class="material-icons md-18">audiotrack</i>
+            </button>
         </li>
         <li>
-            <div style="display:inline-block">
-                <button type="button" data-type="image" data-action="add" id="btn-add-image-{{id}}" data-toggle="modal" data-target="#fileManagerModal"
-                    data-section-id="{{id}}">
-                    <label for="btn-add-image-{{id}}" class="material-icons md-18">photo</label>
-                </button>
-            </div>
+            <button type="button" data-type="image" data-action="add" id="btn-add-image-{{id}}" data-toggle="modal" data-target="#fileManagerModal"
+                data-section-id="{{id}}">
+                <i class="material-icons md-18">photo</i>
+            </button>
         </li>
     </ul>
 </div>
