@@ -322,7 +322,7 @@ export default class core {
         map(this.data, function (item) {
             if (item.id === id) {
                 item.field1 = contentHtml;
-                item.field1 = contentText;
+                item.field2 = contentHtml;
             }
 
             return item;
@@ -374,7 +374,6 @@ export default class core {
 
     init = () => {
 
-        let a = 1;
         document.addEventListener("click", (event) => {
             // console.log(event.target.parentNode.parentNode.length);
             if (event.target.dataset.action !== 'undefined' && event.target.dataset.action === 'toggleList') {
