@@ -6,7 +6,7 @@ export default class fileManager {
     }
 
     init = (button, coreClass) => {
-        var fileItems = document.querySelectorAll(".item-fm-file");
+        var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         let $modal = this.modal;
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
@@ -21,6 +21,7 @@ export default class fileManager {
                     const dataset = event.target.dataset;
 
                     $(document).trigger( "file.item.select", dataset);
+                    
                 }
                 $modal.modal("hide");
             })

@@ -187,4 +187,6 @@ body {
     // max-height: calc(100vh - 200px);  with footer
     max-height: calc(100vh - 128px); // height: calc(100vh - 200px); with footer
     height: 512px;
+    overflow: hidden;
+    overflow-y: auto;
 }

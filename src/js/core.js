@@ -105,7 +105,8 @@ export default class core {
                             } else {
                                 modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({
                                     name: item.name,
-                                    path: item.linkHost + item.linkPath
+                                    path: item.linkHost + item.linkPath,
+                                    isImage: true
                                 }));
                             }
 

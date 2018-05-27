@@ -1,12 +1,16 @@
 <div class=" col-xs-12 col-md-4 col-lg-3">
-    <div class="fm-card">
-        <div class="fm-icon-box">
-            <i class="material-icons">photo</i>
+    <div class="fm-card fm-card-col">
+        <div class="fm-preview-box">
+            {{#isImage}}
+            <img src="{{path}}" class="" data-toggle="addFile" data-address="{{path}}" data-is-directory="false"
+                alt=""> {{/isImage}}
         </div>
+
+
         <div class="fm-name-box content-title">
-            <a href="javascript:void(0)" class="item-fm-file" data-address="{{path}}" data-is-directory="false">{{name}}</a>
+            <span class="item-fm-file" data-toggle="addFile" data-address="{{path}}" data-is-directory="false">{{name}}</span>
         </div>
-        
+
         {{!--
         <div class="fm-detail-box dropdown"> --}} {{!--
             <button class="fm-detail-btn dropdown-toggle" type="button" id="dropdownMenu${loop.index}" data-toggle="dropdown" aria-haspopup="true"

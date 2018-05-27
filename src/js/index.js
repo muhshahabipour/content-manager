@@ -17,6 +17,8 @@ let defaults = {
     }
 }
 
+
+
 let elem = null;
 
 
@@ -35,10 +37,10 @@ export class ContentManager extends Emitter {
             this.elem.dataset["time"] = new Date().getTime();
             this.elem.dataset["name"] = "ali";
             
+        
             this.elem.classList.add("cm-wrapper");
             
             this.core = new core(this.elem, defaults);
-            
             
             this.core.init();
 
