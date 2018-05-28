@@ -36,13 +36,8 @@
   <script src="/contentManager.js"></script>
 
   <script>
-    // var contentManager = new ContentManager({
-    //   target: "#contentManager",
-    //   placeholder: "اینجا تایپ کنید",
-    //   editor: true
-    // });
 
-    var headlineManager = new ContentManager({
+    var contentManager = new ContentManager({
       target: "#headlineManager",
       placeholder: "اینجا تایپ کنید",
       editor: true,
@@ -52,7 +47,7 @@
       }
     });
 
-    console.log(headlineManager.getData());
+    console.log(contentManager.getData());
     
     // contentManager.setData([{
       // id: 'dfgfgsdfgdfg',

@@ -175,7 +175,7 @@ export default class core {
         // start item wrapper
         let section = document.createElement('div');
         section.classList.add('cm-section');
-        section.id = id;
+        section.id = "cm-section-" + id;
 
         let contenteditableDiv = document.createElement('div');
 
@@ -232,7 +232,12 @@ export default class core {
 
         // handler show/hide button control
         contenteditableDiv.addEventListener("input", function (event) {
-            let buttonControl = document.querySelector("#cm-btn-control-" + contenteditableDiv.parentNode.id);
+            const regex = /cm-section-((\w*\W*)*)/g;
+            let id = contenteditableDiv.parentNode.id;
+            if (id.match(regex)) {
+                id = id.replace(regex, "$1");
+            }
+            let buttonControl = document.querySelector("#cm-btn-control-" + id);
             if (!this.innerText.trim().length) {
                 buttonControl.classList.remove("hidden");
 
@@ -307,7 +312,11 @@ export default class core {
 
 
     updateContentRow = (elem, type) => {
-        const id = elem.parentNode.id;
+        const regex = /cm-section-((\w*\W*)*)/g;
+        let id = elem.parentNode.id;
+        if (id.match(regex)) {
+            id = id.replace(regex, "$1");
+        }
         const isExist = general.isExistInEnum(ContentType, type);
         if (isExist) {
             map(this.data, function (item) {
@@ -320,7 +329,11 @@ export default class core {
 
 
     updateContentText = (elem) => {
-        const id = elem.parentNode.id;
+        const regex = /cm-section-((\w*\W*)*)/g;
+        let id = elem.parentNode.id;
+        if (id.match(regex)) {
+            id = id.replace(regex, "$1");
+        }
         const contentHtml = elem.innerHTML;
         const contentText = elem.innerText;
         map(this.data, function (item) {
@@ -335,12 +348,16 @@ export default class core {
 
 
     updateContentObject = (elem, type) => {
-        const id = elem.parentNode.id;
+        const regex = /cm-section-((\w*\W*)*)/g;
+        let id = elem.parentNode.id;
+        if (id.match(regex)) {
+            id = id.replace(regex, "$1");
+        }
+
         const content = elem.innerHTML;
         map(this.data, function (item) {
             if (item.id === id) {
                 item.field2 = content;
-
                 if (AccessFileManagerType.IMAGE === type) {
                     item.field1 = imageTemplate({
                         url: content
@@ -368,7 +385,11 @@ export default class core {
 
 
     removeDataItem = (elem) => {
-        const id = elem.parentNode.id;
+        const regex = /cm-section-((\w*\W*)*)/g;
+        let id = elem.parentNode.id;
+        if (id.match(regex)) {
+            id = id.replace(regex, "$1");
+        }
         this.data = remove(this.data, (item) => {
             if (item.id !== id) {
                 return item;

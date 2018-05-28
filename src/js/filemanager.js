@@ -1,3 +1,6 @@
+import general from './general-functions'
+
+
 export default class fileManager {
     modal = null;
 
@@ -20,12 +23,19 @@ export default class fileManager {
                 } else {
                     const dataset = event.target.dataset;
 
-                    $(document).trigger( "file.item.select", dataset);
-                    
+                    $(document).trigger("file.item.select", dataset);
+
                 }
+
+                coreClass.createSection(document.querySelector("#cm-section-" + button.data("sectionId")));
+
+                general.setEndOfContenteditable(document.querySelector(".cm-wrapper").lastElementChild.querySelector('.cm-content'));
+
                 $modal.modal("hide");
             })
         })
+
+
     }
 
 }
