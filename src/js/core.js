@@ -302,10 +302,8 @@ export default class core {
         // append new section to end of content manager
 
         if (!lastSection) {
-            console.log("lastSection", lastSection)
             this.elem.appendChild(section);
         } else {
-            console.log("lastSection", lastSection)
             general.insertAfter(section, lastSection);
         }
 
