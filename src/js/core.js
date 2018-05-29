@@ -462,7 +462,8 @@ export default class core {
         let lastElement = null;
         dataInput.forEach((item) => {
             if (item.contentRow === ContentType.TEXT) {
-                lastElement = thisClass.createSection(lastElement, item);
+                lastElement = thisClass.createSection(isFirst ? false : lastElement, item);
+                if (isFirst) isFirst = false;                
                 general.triggerEvent(lastElement, 'input');
             } else {
                 const regex = /^<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
