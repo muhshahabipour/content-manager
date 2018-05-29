@@ -305,6 +305,7 @@ export default class core {
             console.log("lastSection", lastSection)
             this.elem.appendChild(section);
         } else {
+            console.log("lastSection", lastSection)
             general.insertAfter(section, lastSection);
         }
 
@@ -462,10 +463,13 @@ export default class core {
         let lastElement = null;
         dataInput.forEach((item) => {
             if (item.contentRow === ContentType.TEXT) {
-                lastElement = thisClass.createSection(isFirst ? false : lastElement, item);
-                if (isFirst) isFirst = false;                
+
+                lastElement = thisClass.createSection(isFirst ? false : lastElement.parentNode, item);
+                if (isFirst) isFirst = false;
                 general.triggerEvent(lastElement, 'input');
+
             } else {
+
                 const regex = /^<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
                 item = transform(item, (result, value, key) => {
                     if (key === "field1") {
@@ -478,7 +482,7 @@ export default class core {
                     }
                 }, {});
 
-                lastElement = thisClass.createSection(isFirst ? false : lastElement, item);
+                lastElement = thisClass.createSection(isFirst ? false : lastElement.parentNode, item);
                 if (isFirst) isFirst = false;
                 var event = new CustomEvent('cm.inset.media', {
                     detail: {

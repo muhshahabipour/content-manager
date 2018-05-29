@@ -36,7 +36,6 @@
   <script src="/contentManager.js"></script>
 
   <script>
-
     var contentManager = new ContentManager({
       target: "#headlineManager",
       placeholder: "اینجا تایپ کنید",
@@ -48,24 +47,44 @@
     });
 
     // console.log(contentManager.getData());
-    
-    contentManager.setData([{
-      id: 'dfgfgsdfgdfg',
-      contentRow: 'text',
-      field1: 'dsafdfgsfdgdfg 213234 1',
-      field2: '',
-      field3: '',
-      field4: '',
-      field5: ''
-    },{
-      id: 'dfgfgsdfgdfg 2',
-      contentRow: 'image',
-      field1: '<img src=\"http://213.233.176.12:8080/swift/v1/103e693b-cc52-11e7-9573-ac162d7938f0/a0764545-3bfc-4176-8b96-19029fb4a58c.jpg\">',
-      field2: '',
-      field3: '',
-      field4: '',
-      field5: ''
-    }])
+    var f = function () {
+      contentManager.setData([{
+          id: 'dfgfgsdfgdfg',
+          contentRow: 'text',
+          field1: 'dsafdfgsfdgdfg 213234 1',
+          field2: '',
+          field3: '',
+          field4: '',
+          field5: ''
+        },
+        {
+          id: 'dfgfgsdfgdfg',
+          contentRow: 'text',
+          field1: 'dsafdfgsfdgdfg 213234 2',
+          field2: '',
+          field3: '',
+          field4: '',
+          field5: ''
+        },
+        {
+          id: 'dfgfgsdfgdfg',
+          contentRow: 'text',
+          field1: 'dsafdfgsfdgdfg 213234 3',
+          field2: '',
+          field3: '',
+          field4: '',
+          field5: ''
+        }, {
+          id: 'dfgfgsdfgdfg 2',
+          contentRow: 'image',
+          field1: '<img src=\"http://213.233.176.12:8080/swift/v1/103e693b-cc52-11e7-9573-ac162d7938f0/a0764545-3bfc-4176-8b96-19029fb4a58c.jpg\">',
+          field2: '',
+          field3: '',
+          field4: '',
+          field5: ''
+        }
+      ])
+    }
   </script>
 </body>
 
