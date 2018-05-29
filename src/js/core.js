@@ -456,7 +456,8 @@ export default class core {
         // clear data
         this.data = [];
 
-        let lastElement = false;
+        let isFirst = true;
+        let lastElement = null;
         dataInput.forEach((item) => {
             if (item.contentRow === ContentType.TEXT) {
                 lastElement = thisClass.createSection(lastElement, item);
@@ -474,7 +475,8 @@ export default class core {
                     }
                 }, {});
 
-                lastElement = thisClass.createSection(lastElement, item);
+                lastElement = thisClass.createSection(isFirst ? false : lastElement, item);
+                if (isFirst) isFirst = false;
                 var event = new CustomEvent('cm.inset.media', {
                     detail: {
                         contentRow: item.contentRow
