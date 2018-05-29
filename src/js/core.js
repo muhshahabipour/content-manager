@@ -5,6 +5,7 @@ import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 import extend from 'lodash/extend'
 import remove from 'lodash/remove'
+import transform from 'lodash/transform'
 
 var createSection = require("./templates/create-section.handlebars");
 var modalFileManager = require("./templates/modal-filemanager.handlebars");
@@ -248,6 +249,24 @@ export default class core {
             thisClass.updateContentText(contenteditableDiv);
         });
 
+        // handler insert media
+        contenteditableDiv.addEventListener("cm.inset.media", function (event) {
+            const regex = /cm-section-((\w*\W*)*)/g;
+            let id = contenteditableDiv.parentNode.id;
+            if (id.match(regex)) {
+                id = id.replace(regex, "$1");
+            }
+            let buttonControl = document.querySelector("#cm-btn-control-" + id);
+            if (!this.innerText.trim().length) {
+                buttonControl.classList.remove("hidden");
+
+            } else {
+                buttonControl.classList.add("hidden");
+            }
+
+            thisClass.updateContentObject(contenteditableDiv, event.detail.contentRow);
+        });
+
         /************************ end event listener ************************/
 
 
@@ -400,7 +419,6 @@ export default class core {
     init = () => {
 
         document.addEventListener("click", (event) => {
-            // console.log(event.target.parentNode.parentNode.length);
             if (event.target.dataset.action !== 'undefined' && event.target.dataset.action === 'toggleList') {
 
                 let target = document.querySelector(event.target.dataset.target);
@@ -427,17 +445,43 @@ export default class core {
         this.createSection();
     }
 
-    setData = (data = []) => {
+    setData = (dataInput = []) => {
         let thisClass = this;
 
+        // clear form
         const sections = document.querySelectorAll('.cm-section');
         sections.forEach((item) => {
             item.remove();
-        })
+        });
+        // clear data
+        this.data = [];
 
-        data.forEach((item) => {
-            let lastElement = thisClass.createSection(lastElement, item);
-            general.triggerEvent(lastElement, 'input');
+        let lastElement = false;
+        dataInput.forEach((item) => {
+            if (item.contentRow === ContentType.TEXT) {
+                lastElement = thisClass.createSection(lastElement, item);
+                general.triggerEvent(lastElement, 'input');
+            } else {
+                const regex = /^<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
+                item = transform(item, (result, value, key) => {
+                    if (key === "field1") {
+                        if (item.field1.match(regex)) {
+                            value = value.replace(regex, "$4");
+                            result[key] = value;
+                        }
+                    } else {
+                        result[key] = value;
+                    }
+                }, {});
+
+                lastElement = thisClass.createSection(lastElement, item);
+                var event = new CustomEvent('cm.inset.media', {
+                    detail: {
+                        contentRow: item.contentRow
+                    }
+                });
+                lastElement.dispatchEvent(event);
+            }
         });
     }
 

@@ -13,8 +13,6 @@ export default class fileManager {
         let $modal = this.modal;
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
-                // console.log("address", event.target.dataset.address);
-                // console.log("sectionId", button.data("sectionId"));
                 if (!button.data("isExtra")) {
                     $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
                     coreClass.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
@@ -23,7 +21,7 @@ export default class fileManager {
                 } else {
                     const dataset = event.target.dataset;
 
-                    $(document).trigger("file.item.select", dataset);
+                    $(document).trigger("fm.file.item.select", dataset);
 
                 }
 
