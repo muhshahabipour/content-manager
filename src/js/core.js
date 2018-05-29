@@ -47,7 +47,7 @@ export default class core {
     constructor(elem, defaults) {
 
         // fot test 
-        const aaaaaaaaa = 1
+        // const aaaaaaaaa = 1
 
         this.elem = elem;
         this.defaults = defaults;
@@ -300,7 +300,9 @@ export default class core {
         });
 
         // append new section to end of content manager
+
         if (!lastSection) {
+            console.log("lastSection", lastSection)
             this.elem.appendChild(section);
         } else {
             general.insertAfter(section, lastSection);
