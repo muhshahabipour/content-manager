@@ -143,8 +143,8 @@ export default class core {
                 .then(function (response) {
                     // console.info(response);
                     if (response.status === 1) {
-
-                        modal.find('#nextPagekey').val(response.directoryInfo.nextPagekey)
+                        // console.log("next", response.directoryInfo.nextPageKey)
+                        modal.find('#nextPagekey').val(response.directoryInfo.nextPageKey)
                         modal.find('#path').val(response.directoryInfo.currentPath)
 
                         response.directoryInfo.data.forEach((item) => {
