@@ -105,6 +105,9 @@ export default class core {
                             // console.info(response);
                             if (response.status === 1) {
 
+                                modal.find('#nextPagekey').val(response.directoryInfo.nextPageKey)
+                                modal.find('#path').val(response.directoryInfo.currentPath)
+
                                 response.directoryInfo.data.forEach((item) => {
                                     if (item.isDirectory) {
                                         // modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
