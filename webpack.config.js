@@ -80,7 +80,8 @@ module.exports = env => {
         plugins: [
             new CleanWebpackPlugin(isProduction ? pathsToClean : [], cleanOptions),
             new ExtractTextPlugin({
-                filename: "contentManager.css?[hash]-[chunkhash]-[contenthash]-[name]",
+                // filename: "contentManager.css?[hash]-[chunkhash]-[contenthash]-[name]",
+                filename: "contentManager.css?[hash]-[chunkhash]",
                 disable: false,
                 allChunks: true
             }),

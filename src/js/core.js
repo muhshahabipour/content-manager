@@ -85,6 +85,50 @@ export default class core {
             var modal = $(this)
             const filemanager = new fileManager(modal);
 
+            let isEnd = false;
+
+
+            modal.find('.modal-body').scroll(function () {
+                if (modal.find('.fm-wrapper').height() <= modal.find('.modal-body').scrollTop() + (modal.find('.modal-body').height() + 16)) {
+                    // TODO: Optimize File/Folder List
+                    $.ajax({
+                            url: defaults.ajax.url,
+                            method: defaults.ajax.method,
+
+                            data: extend({
+                                nextPagekey: modal.find('#nextPagekey').val(),
+                                path: modal.find('#path').val()
+                            }, defaults.ajax.data),
+                            headers: defaults.ajax.headers
+                        })
+                        .then(function (response) {
+                            // console.info(response);
+                            if (response.status === 1) {
+
+                                response.directoryInfo.data.forEach((item) => {
+                                    if (item.isDirectory) {
+                                        // modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
+                                    } else {
+                                        modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({
+                                            name: item.name,
+                                            path: item.linkHost + item.linkPath,
+                                            isImage: true
+                                        }));
+                                    }
+
+                                });
+
+                                filemanager.init($button, thisClass);
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.error(error);
+                        });
+                }
+            });
+
+
             // TODO: Optimize File/Folder List
             $.ajax({
                     url: defaults.ajax.url,
@@ -100,6 +144,9 @@ export default class core {
                     // console.info(response);
                     if (response.status === 1) {
 
+                        modal.find('#nextPagekey').val(response.directoryInfo.nextPagekey)
+                        modal.find('#path').val(response.directoryInfo.currentPath)
+
                         response.directoryInfo.data.forEach((item) => {
                             if (item.isDirectory) {
                                 // modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
@@ -114,7 +161,6 @@ export default class core {
                         });
 
                         filemanager.init($button, thisClass);
-
                     }
 
                 })
