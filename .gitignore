@@ -35,5 +35,5 @@ npm-debug.log
 
 .DS_Store
 # dist
-package-lock.json
+# package-lock.json
 .vscode/*
