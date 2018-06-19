@@ -1,17 +1,15 @@
 import general from './general-functions'
-import fileManager from './filemanager'
+// import fileManager from './filemanager'
+import FileManager from 'vaslapp-file-manager'
 import linkManaager from './link'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
-import extend from 'lodash/extend'
+// import extend from 'lodash/extend'
 import remove from 'lodash/remove'
 import transform from 'lodash/transform'
 
 var createSection = require("./templates/create-section.handlebars");
-var modalFileManager = require("./templates/modal-filemanager.handlebars");
 var modalURL = require("./templates/modal-url.handlebars");
-var fileManagerItemFile = require("./templates/item-file.handlebars");
-var fileManagerItemFolder = require("./templates/item-folder.handlebars");
 
 var imageTemplate = require("./templates/image-template.handlebars");
 var videoTemplate = require("./templates/video-template.handlebars");
@@ -56,9 +54,23 @@ export default class core {
 
         let thisClass = this;
 
-        var b = document.createElement('div')
-        b.innerHTML = modalFileManager({});
-        document.body.appendChild(b);
+
+        new FileManager({
+            ajax: {
+                url: 'http://localhost:3004/images',
+                method: "GET",
+            }
+        });
+
+        // document.addEventListener('fm.folder.item.select', function (e) {
+            // console.log(e.detail);
+        // })
+
+        // document.addEventListener('fm.file.item.select', function (e) {
+        //     // e.target matches elem
+        //     console.info(e.detail);
+        // }, false);
+
         var c = document.createElement('div')
         c.innerHTML = modalURL({});
         document.body.appendChild(c);
@@ -76,108 +88,6 @@ export default class core {
             var modal = $(this)
             modal.find('.modal-body input').val("");
         });
-
-
-
-        $('#fileManagerModal').on('show.bs.modal', function (event) {
-            var $button = $(event.relatedTarget);
-
-            var modal = $(this)
-            const filemanager = new fileManager(modal);
-
-            let isEnd = false;
-
-
-            modal.find('.modal-body').scroll(function () {
-                if (modal.find('.fm-wrapper').height() <= modal.find('.modal-body').scrollTop() + (modal.find('.modal-body').height() + 16)) {
-                    // TODO: Optimize File/Folder List
-                    $.ajax({
-                            url: defaults.ajax.url,
-                            method: defaults.ajax.method,
-
-                            data: extend({
-                                nextPagekey: modal.find('#nextPagekey').val(),
-                                path: modal.find('#path').val()
-                            }, defaults.ajax.data),
-                            headers: defaults.ajax.headers
-                        })
-                        .then(function (response) {
-                            // console.info(response);
-                            if (response.status === 1) {
-
-                                modal.find('#nextPagekey').val(response.directoryInfo.nextPageKey)
-                                modal.find('#path').val(response.directoryInfo.currentPath)
-
-                                response.directoryInfo.data.forEach((item) => {
-                                    if (item.isDirectory) {
-                                        // modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
-                                    } else {
-                                        modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({
-                                            name: item.name,
-                                            path: item.linkHost + item.linkPath,
-                                            isImage: true
-                                        }));
-                                    }
-
-                                });
-
-                                filemanager.init($button, thisClass);
-                            }
-
-                        })
-                        .catch(function (error) {
-                            console.error(error);
-                        });
-                }
-            });
-
-
-            // TODO: Optimize File/Folder List
-            $.ajax({
-                    url: defaults.ajax.url,
-                    method: defaults.ajax.method,
-
-                    data: extend({
-                        nextPagekey: '',
-                        path: '/'
-                    }, defaults.ajax.data),
-                    headers: defaults.ajax.headers
-                })
-                .then(function (response) {
-                    // console.info(response);
-                    if (response.status === 1) {
-                        // console.log("next", response.directoryInfo.nextPageKey)
-                        modal.find('#nextPagekey').val(response.directoryInfo.nextPageKey)
-                        modal.find('#path').val(response.directoryInfo.currentPath)
-
-                        response.directoryInfo.data.forEach((item) => {
-                            if (item.isDirectory) {
-                                // modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
-                            } else {
-                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({
-                                    name: item.name,
-                                    path: item.linkHost + item.linkPath,
-                                    isImage: true
-                                }));
-                            }
-
-                        });
-
-                        filemanager.init($button, thisClass);
-                    }
-
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-
-        })
-
-        $('#fileManagerModal').on('hide.bs.modal', function (event) {
-            var modal = $(this)
-            modal.find('.modal-body .fm-wrapper').html("");
-        })
-
 
         return this;
     }

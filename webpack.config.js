@@ -107,7 +107,8 @@ module.exports = env => {
                 handlebars: 'handlebars/dist/handlebars.min.js',
                 'medium-editor': 'medium-editor/dist/js/medium-editor.min.js',
                 $: 'jquery/dist/jquery.slim.min.js',
-                bootstrap: 'bootstrap/dist/bootstrap.min.js'
+                bootstrap: 'bootstrap/dist/bootstrap.min.js',
+                'vaslapp-file-manager': 'vaslapp-file-manager/dist/filemanager.js',
             }
         }
     }
