@@ -56,10 +56,7 @@ export default class core {
 
 
         new FileManager({
-            ajax: {
-                url: 'http://localhost:3004/images',
-                method: "GET",
-            }
+            ajax: this.defaults.ajax
         });
 
         // document.addEventListener('fm.folder.item.select', function (e) {
