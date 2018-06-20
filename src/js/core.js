@@ -52,7 +52,7 @@ export default class core {
         this.data = [];
         this.id = "";
 
-        let thisClass = this;
+        let self = this;
 
 
         new FileManager({
@@ -60,13 +60,20 @@ export default class core {
         });
 
         // document.addEventListener('fm.folder.item.select', function (e) {
-            // console.log(e.detail);
+        // console.log(e.detail);
         // })
 
-        // document.addEventListener('fm.file.item.select', function (e) {
-        //     // e.target matches elem
-        //     console.info(e.detail);
-        // }, false);
+        document.addEventListener('fm.file.item.select', function (event) {
+            
+            // console.info(event.detail);
+            // console.info(event.relatedTarget);
+            const button = $(event.relatedTarget);
+            $('#cm-content-' + button.data("sectionId")).html(event.detail.address);
+            self.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
+            let buttonCtrl = document.querySelector('#cm-btn-control-' + button.data("sectionId"));
+            buttonCtrl.classList.add("hidden");
+
+        }, false);
 
         var c = document.createElement('div')
         c.innerHTML = modalURL({});
@@ -78,7 +85,7 @@ export default class core {
             var modal = $(this)
 
             const link = new linkManaager(modal);
-            link.init($button, thisClass);
+            link.init($button, self);
         });
 
         $('#urlModal').on('hidden.bs.modal', function () {
@@ -97,7 +104,7 @@ export default class core {
 
 
     createSection = (lastSection, value) => {
-        let thisClass = this;
+        let self = this;
 
         const id = this.id = general.uuid();
 
@@ -152,7 +159,7 @@ export default class core {
 
         // handler remove section
         contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
-            thisClass.updateContentRow(contenteditableDiv, ContentType.TEXT)
+            self.updateContentRow(contenteditableDiv, ContentType.TEXT)
 
             let keycode = (event.charCode ? event.charCode : event.which);
             if (keycode === 8) {
@@ -161,7 +168,7 @@ export default class core {
                     // remove section
                     event.preventDefault();
                     if (this.elem.querySelectorAll('.cm-section').length > 1) {
-                        thisClass.removeDataItem(contenteditableDiv);
+                        self.removeDataItem(contenteditableDiv);
                         this.elem.removeChild(section);
                         let lastElement = this.elem.lastElementChild.querySelector('.cm-content')
                         general.setEndOfContenteditable(lastElement);
@@ -183,7 +190,7 @@ export default class core {
             } else if (keycode === 13) {
                 // new section
                 event.preventDefault();
-                thisClass.createSection(section);
+                self.createSection(section);
             }
         });
 
@@ -202,7 +209,7 @@ export default class core {
                 buttonControl.classList.add("hidden");
             }
 
-            thisClass.updateContentText(contenteditableDiv);
+            self.updateContentText(contenteditableDiv);
         });
 
         // handler insert media
@@ -220,7 +227,7 @@ export default class core {
                 buttonControl.classList.add("hidden");
             }
 
-            thisClass.updateContentObject(contenteditableDiv, event.detail.contentRow);
+            self.updateContentObject(contenteditableDiv, event.detail.contentRow);
         });
 
         /************************ end event listener ************************/
@@ -251,7 +258,7 @@ export default class core {
             btnAdd.addEventListener("click", (event) => {
                 let type = event.currentTarget.dataset["type"];
                 // if (general.isExistInEnum(AccessFileManagerType, type)) {}
-                thisClass.updateContentRow(contenteditableDiv, type);
+                self.updateContentRow(contenteditableDiv, type);
             })
         });
 
@@ -403,7 +410,7 @@ export default class core {
     }
 
     setData = (dataInput = []) => {
-        let thisClass = this;
+        let self = this;
 
         // clear form
         const sections = document.querySelectorAll('.cm-section');
@@ -418,7 +425,7 @@ export default class core {
         dataInput.forEach((item) => {
             if (item.contentRow === ContentType.TEXT) {
 
-                lastElement = thisClass.createSection(isFirst ? false : lastElement.parentNode, item);
+                lastElement = self.createSection(isFirst ? false : lastElement.parentNode, item);
                 if (isFirst) isFirst = false;
                 general.triggerEvent(lastElement, 'input');
 
@@ -436,7 +443,7 @@ export default class core {
                     }
                 }, {});
 
-                lastElement = thisClass.createSection(isFirst ? false : lastElement.parentNode, item);
+                lastElement = self.createSection(isFirst ? false : lastElement.parentNode, item);
                 if (isFirst) isFirst = false;
                 var event = new CustomEvent('cm.inset.media', {
                     detail: {
