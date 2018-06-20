@@ -1,6 +1,6 @@
 {
   "name": "vaslapp-content-manager",
-  "version": "1.1.6",
+  "version": "1.1.11",
   "description": "",
   "main": "dist/contentManager.js",
   "scripts": {
@@ -35,6 +35,7 @@
   "dependencies": {
     "bootstrap": "^4.1.0",
     "jquery": "^3.3.1",
-    "medium-editor": "^5.23.3"
+    "medium-editor": "^5.23.3",
+    "vaslapp-file-manager": "^1.0.6"
   }
 }
