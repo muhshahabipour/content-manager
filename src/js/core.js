@@ -57,6 +57,7 @@ export default class core {
 
         new FileManager({
             target: this.defaults.target,
+            modalId: 'contentFileManagerModal',
             ajax: this.defaults.ajax
         });
 
