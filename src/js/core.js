@@ -56,6 +56,7 @@ export default class core {
 
 
         new FileManager({
+            target: this.defaults.target,
             ajax: this.defaults.ajax
         });
 
@@ -63,7 +64,8 @@ export default class core {
         // console.log(e.detail);
         // })
 
-        document.addEventListener('fm.file.item.select', function (event) {
+        let selector = document.querySelector(this.defaults.target);
+        selector.addEventListener('fm.file.item.select', function (event) {
             
             // console.info(event.detail);
             // console.info(event.relatedTarget);
