@@ -8,7 +8,7 @@ import map from 'lodash/map'
 import remove from 'lodash/remove'
 import transform from 'lodash/transform'
 
-var createSection = require("./templates/create-section.handlebars");
+var createSectionTmp = require("./templates/create-section.handlebars");
 var modalURL = require("./templates/modal-url.handlebars");
 
 var imageTemplate = require("./templates/image-template.handlebars");
@@ -39,6 +39,7 @@ const AccessFileManagerType = general.toEnum({
     LINK: "link",
 });
 
+let self = null;
 
 export default class core {
 
@@ -52,22 +53,22 @@ export default class core {
         this.data = [];
         this.id = "";
 
-        let self = this;
+        self = this;
 
 
         new FileManager({
-            target: this.defaults.target,
+            target: self.defaults.target,
             modalId: 'contentFileManagerModal',
-            ajax: this.defaults.ajax
+            ajax: self.defaults.ajax
         });
 
         // document.addEventListener('fm.folder.item.select', function (e) {
         // console.log(e.detail);
         // })
 
-        let selector = document.querySelector(this.defaults.target);
+        let selector = document.querySelector(self.defaults.target);
         selector.addEventListener('fm.file.item.select', function (event) {
-            
+            event.preventDefault();
             // console.info(event.detail);
             // console.info(event.relatedTarget);
             const button = $(event.relatedTarget);
@@ -75,6 +76,7 @@ export default class core {
             self.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
             let buttonCtrl = document.querySelector('#cm-btn-control-' + button.data("sectionId"));
             buttonCtrl.classList.add("hidden");
+            self.createSection(document.querySelector('#cm-section-' + button.data("sectionId")));
 
         }, false);
 
@@ -106,10 +108,9 @@ export default class core {
     }
 
 
-    createSection = (lastSection, value) => {
-        let self = this;
+    createSection = (lastSection = null, value = null) => {
 
-        const id = this.id = general.uuid();
+        const id = self.id = general.uuid();
 
 
         let thisObject = {
@@ -136,7 +137,7 @@ export default class core {
             }
         }
 
-        this.data.push(thisObject);
+        self.data.push(thisObject);
 
 
         // start item wrapper
@@ -150,7 +151,7 @@ export default class core {
         // contenteditableDiv.innerHTML = "for test => " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         contenteditableDiv.setAttribute("contenteditable", "true");
-        contenteditableDiv.setAttribute("placeholder", this.defaults.placeholder || "write here...");
+        contenteditableDiv.setAttribute("placeholder", self.defaults.placeholder || "write here...");
         contenteditableDiv.classList.add("cm-content");
         contenteditableDiv.id = "cm-content-" + id;
 
@@ -163,17 +164,17 @@ export default class core {
         // handler remove section
         contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
-
             let keycode = (event.charCode ? event.charCode : event.which);
             if (keycode === 8) {
                 let inn = contenteditableDiv.innerText.trim();
                 if (inn === "" || !inn.length || inn === "\r\n" || inn === "\n") {
                     // remove section
                     event.preventDefault();
-                    if (this.elem.querySelectorAll('.cm-section').length > 1) {
+
+                    if (self.elem.querySelectorAll('.cm-section').length > 1) {
                         self.removeDataItem(contenteditableDiv);
-                        this.elem.removeChild(section);
-                        let lastElement = this.elem.lastElementChild.querySelector('.cm-content')
+                        self.elem.removeChild(section);
+                        let lastElement = self.elem.lastElementChild.querySelector('.cm-content')
                         general.setEndOfContenteditable(lastElement);
                     }
                 }
@@ -240,7 +241,7 @@ export default class core {
         let btnControlDiv = document.createElement('div');
         btnControlDiv.classList.add("cm-btn-control");
         btnControlDiv.id = "cm-btn-control-" + id;
-        btnControlDiv.innerHTML = createSection({
+        btnControlDiv.innerHTML = createSectionTmp({
             id: id
         });
 
@@ -268,7 +269,7 @@ export default class core {
         // append new section to end of content manager
 
         if (!lastSection) {
-            this.elem.appendChild(section);
+            self.elem.appendChild(section);
         } else {
             general.insertAfter(section, lastSection);
         }
@@ -305,7 +306,7 @@ export default class core {
         }
         const isExist = general.isExistInEnum(ContentType, type);
         if (isExist) {
-            map(this.data, function (item) {
+            map(self.data, function (item) {
                 if (item.id === id)
                     item.contentRow = type;
                 return item;
@@ -322,7 +323,7 @@ export default class core {
         }
         const contentHtml = elem.innerHTML;
         const contentText = elem.innerText;
-        map(this.data, function (item) {
+        map(self.data, function (item) {
             if (item.id === id) {
                 item.field1 = contentHtml;
                 item.field2 = contentHtml;
@@ -341,7 +342,7 @@ export default class core {
         }
 
         const content = elem.innerHTML;
-        map(this.data, function (item) {
+        map(self.data, function (item) {
             if (item.id === id) {
                 item.field2 = content;
                 if (AccessFileManagerType.IMAGE === type) {
@@ -376,12 +377,13 @@ export default class core {
         if (id.match(regex)) {
             id = id.replace(regex, "$1");
         }
-        this.data = remove(this.data, (item) => {
+        self.data = remove(self.data, (item) => {
             if (item.id !== id) {
                 return item;
             }
         })
     }
+
 
     init = () => {
 
@@ -409,7 +411,7 @@ export default class core {
             }
         });
 
-        this.createSection();
+        self.createSection();
     }
 
     setData = (...dataInput) => {
@@ -421,7 +423,7 @@ export default class core {
             item.remove();
         });
         // clear data
-        this.data = [];
+        self.data = [];
 
         let isFirst = true;
         let lastElement = null;
@@ -458,5 +460,5 @@ export default class core {
         });
     }
 
-    getData = () => this.data;
+    getData = () => self.data;
 }
