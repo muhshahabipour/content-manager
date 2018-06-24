@@ -189,7 +189,7 @@ export default class core {
                 // new line
                 event.preventDefault();
                 document.execCommand("insertparagraph", false, contenteditableDiv.id)
-                general.setEndOfContenteditable(contenteditableDiv);
+                // general.setEndOfContenteditable(contenteditableDiv);
 
             } else if (keycode === 13) {
                 // new section
