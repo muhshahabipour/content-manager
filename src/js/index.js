@@ -52,7 +52,7 @@ export class ContentManager extends Emitter {
 
     getData = () => this.core.getData();
 
-    setData = (data) => this.core.setData(data);
+    setData = (data = []) => this.core.setData(data);
 
 }
 

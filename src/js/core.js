@@ -414,7 +414,7 @@ export default class core {
         self.createSection();
     }
 
-    setData = (...dataInput) => {
+    setData = (dataInput = []) => {
         let self = this;
 
         // clear form
