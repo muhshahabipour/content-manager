@@ -173,8 +173,8 @@ export default class core {
                     if (self.elem.querySelectorAll('.cm-section').length > 1) {
                         self.removeDataItem(contenteditableDiv);
                         self.elem.removeChild(section);
-                        let lastElement = self.elem.lastElementChild.querySelector('.cm-content')
-                        general.setEndOfContenteditable(lastElement);
+                        // let lastElement = self.elem.lastElementChild.querySelector('.cm-content')
+                        // general.setEndOfContenteditable(lastElement);
                     }
                 }
             }
