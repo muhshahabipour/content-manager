@@ -1,10 +1,9 @@
 import general from './general-functions'
-// import fileManager from './filemanager'
 import FileManager from 'vaslapp-file-manager'
 import linkManaager from './link'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
-// import extend from 'lodash/extend'
+import extend from 'lodash/extend'
 import remove from 'lodash/remove'
 import transform from 'lodash/transform'
 
@@ -428,6 +427,18 @@ export default class core {
         let isFirst = true;
         let lastElement = null;
         dataInput.forEach((item) => {
+            let thisObject = {
+                id: "",
+                contentRow: ContentType.TEXT,
+                field1: "",
+                field2: "",
+                field3: "",
+                field4: "",
+                field5: ""
+            }
+
+            item = extend(thisObject, item)
+
             if (item.contentRow === ContentType.TEXT) {
 
                 lastElement = self.createSection(isFirst ? false : lastElement.parentNode, item);
@@ -439,10 +450,10 @@ export default class core {
                 const regex = /^<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
                 item = transform(item, (result, value, key) => {
                     if (key === "field1") {
-                        if (item.field1.match(regex)) {
-                            value = value.replace(regex, "$4");
-                            result[key] = value;
-                        }
+                            if (item.field1.match(regex)) {
+                                value = value.replace(regex, "$4");
+                                result[key] = value;
+                            }
                     } else {
                         result[key] = value;
                     }
