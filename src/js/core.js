@@ -162,6 +162,25 @@ export default class core {
 
         // handler remove section
         contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
+
+
+            const regex = /cm-section-((\w*\W*)*)/g;
+            let id = contenteditableDiv.parentNode.id;
+            if (id.match(regex)) {
+                id = id.replace(regex, "$1");
+            }
+
+            let contentRow = "";
+            (self.data).forEach((item) => {
+                if (item.id == id)
+                    contentRow = item.contentRow;
+            });
+
+            if (contentRow !== ContentType.TEXT) {
+                event.preventDefault();
+                return false
+            }
+
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
             let keycode = (event.charCode ? event.charCode : event.which);
             if (keycode === 8) {
@@ -172,9 +191,8 @@ export default class core {
 
                     if (self.elem.querySelectorAll('.cm-section').length > 1) {
                         self.removeDataItem(contenteditableDiv);
+                        general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
                         self.elem.removeChild(section);
-                        // let lastElement = self.elem.lastElementChild.querySelector('.cm-content')
-                        // general.setEndOfContenteditable(lastElement);
                     }
                 }
             }
@@ -182,7 +200,27 @@ export default class core {
 
         // handler new line/section 
         contenteditableDiv.addEventListener("keydown", (event) => {
+            event = event || window.event;
             let keycode = (event.charCode ? event.charCode : event.which);
+
+
+            const regex = /cm-section-((\w*\W*)*)/g;
+            let id = contenteditableDiv.parentNode.id;
+            if (id.match(regex)) {
+                id = id.replace(regex, "$1");
+            }
+
+            let contentRow = "";
+            (self.data).forEach((item) => {
+                if (item.id == id)
+                    contentRow = item.contentRow;
+            });
+
+            if (contentRow !== ContentType.TEXT && keycode !== 13) {
+                event.preventDefault();
+                return false
+            }
+
             if (keycode === 13 && (event.ctrlKey || event.metaKey)) {
 
                 // new line
@@ -204,6 +242,7 @@ export default class core {
             if (id.match(regex)) {
                 id = id.replace(regex, "$1");
             }
+
             let buttonControl = document.querySelector("#cm-btn-control-" + id);
             if (!this.innerText.trim().length) {
                 buttonControl.classList.remove("hidden");
@@ -450,10 +489,10 @@ export default class core {
                 const regex = /^<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
                 item = transform(item, (result, value, key) => {
                     if (key === "field1") {
-                            if (item.field1.match(regex)) {
-                                value = value.replace(regex, "$4");
-                                result[key] = value;
-                            }
+                        if (item.field1.match(regex)) {
+                            value = value.replace(regex, "$4");
+                            result[key] = value;
+                        }
                     } else {
                         result[key] = value;
                     }
