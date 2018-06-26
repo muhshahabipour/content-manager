@@ -192,7 +192,8 @@ export default class core {
 
         // handler remove section
         contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
-
+            event = event || window.event;
+            let keycode = (event.charCode ? event.charCode : event.which);
 
             const regex = /cm-section-((\w*\W*)*)/g;
             let id = contenteditableDiv.parentNode.id;
@@ -206,13 +207,16 @@ export default class core {
                     contentRow = item.contentRow;
             });
 
-            if (contentRow !== ContentType.TEXT && keycode !== 13 /* Enter */ && keycode !== 8  /* Backspase */ && keycode !== 46  /* Delete */) {
+
+            if (contentRow !== ContentType.TEXT && (keycode !== 8 /* Backspase */ && keycode !== 46 /* Delete */ )) {
+                console.log("Hereeeeeee2", keycode)
                 event.preventDefault();
                 return false;
             }
 
+
+
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
-            let keycode = (event.charCode ? event.charCode : event.which);
             if (keycode === 8) {
                 let inn = contenteditableDiv.innerText.trim();
                 if (inn === "" || !inn.length || inn === "\r\n" || inn === "\n") {
@@ -233,7 +237,6 @@ export default class core {
             event = event || window.event;
             let keycode = (event.charCode ? event.charCode : event.which);
 
-            console.log(keycode)
             const regex = /cm-section-((\w*\W*)*)/g;
             let id = contenteditableDiv.parentNode.id;
             if (id.match(regex)) {
@@ -246,7 +249,7 @@ export default class core {
                     contentRow = item.contentRow;
             });
 
-            if (contentRow !== ContentType.TEXT && keycode !== 13 /* Enter */ && keycode !== 8  /* Backspase */ && keycode !== 46  /* Delete */) {
+            if (contentRow !== ContentType.TEXT && (keycode !== 13 /* Enter */ )) {
                 event.preventDefault();
                 return false;
             }
