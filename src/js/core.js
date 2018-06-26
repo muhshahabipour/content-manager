@@ -5,6 +5,7 @@ import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 import extend from 'lodash/extend'
 import remove from 'lodash/remove'
+import findIndex from 'lodash/findIndex'
 import transform from 'lodash/transform'
 
 var createSectionTmp = require("./templates/create-section.handlebars");
@@ -51,6 +52,7 @@ export default class core {
         this.defaults = defaults;
         this.data = [];
         this.id = "";
+        this.lastCursorPosition = 0;
 
         self = this;
 
@@ -136,8 +138,36 @@ export default class core {
             }
         }
 
-        self.data.push(thisObject);
+        if (lastSection) {
+            try {
+                const regex = /cm-section-((\w*\W*)*)/g;
+                let lastSectionId = lastSection.id;
 
+                if (lastSectionId.match(regex)) {
+                    lastSectionId = lastSectionId.replace(regex, "$1");
+                }
+
+                let index = findIndex((self.data), (k) => {
+                    return k.id === lastSectionId;
+                });
+
+                if (index > -1) {
+                    if ((index + 1) === ((self.data).length)) {
+                        self.data.push(thisObject);
+                    } else {
+                        self.data = general.insertBetween((index + 1), thisObject, self.data);
+                    }
+                } else {
+                    console.log("not found index");
+                    self.data.push(thisObject);
+                }
+            } catch (error) {
+                self.data.push(thisObject);
+                console.log(error);
+            }
+        } else {
+            self.data.push(thisObject);
+        }
 
         // start item wrapper
         let section = document.createElement('div');
@@ -480,12 +510,11 @@ export default class core {
 
             if (item.contentRow === ContentType.TEXT) {
 
-                lastElement = self.createSection(isFirst ? false : lastElement.parentNode, item);
+                lastElement = self.createSection(isFirst ? undefined : lastElement.parentNode, item);
                 if (isFirst) isFirst = false;
                 general.triggerEvent(lastElement, 'input');
 
             } else {
-
                 const regex = /^<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
                 item = transform(item, (result, value, key) => {
                     if (key === "field1") {
@@ -498,7 +527,7 @@ export default class core {
                     }
                 }, {});
 
-                lastElement = self.createSection(isFirst ? false : lastElement.parentNode, item);
+                lastElement = self.createSection(isFirst ? undefined : lastElement.parentNode, item);
                 if (isFirst) isFirst = false;
                 var event = new CustomEvent('cm.inset.media', {
                     detail: {

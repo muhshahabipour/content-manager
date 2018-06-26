@@ -19,9 +19,11 @@ module.exports = env => {
     console.log('NODE_ENV: ', env.NODE_ENV) // 'local'
     console.log('Production: ', env.production) // true
 
+    
     let isProduction = env.production;
 
     return {
+        mode: env.production ? 'production' : 'development',
         entry: ['./src/js/index.js'],
         output: {
             path: path.resolve(__dirname, 'dist'),
@@ -99,6 +101,7 @@ module.exports = env => {
             contentBase: './',
             port: 3000,
         },
+        devtool: 'source-map' ,
         node: {
             fs: 'empty'
         },

@@ -73,11 +73,14 @@ export const triggerEvent = (el, type) => {
 }
 
 
+export const insertBetween = (n, ins, arr) => [...arr.slice(0, n), ins, ...arr.slice(n)]
+
 export default {
     insertAfter,
     setEndOfContenteditable,
     uuid,
     toEnum,
     isExistInEnum,
-    triggerEvent
+    triggerEvent,
+    insertBetween
 }
