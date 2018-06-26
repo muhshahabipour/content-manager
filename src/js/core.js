@@ -209,7 +209,6 @@ export default class core {
 
 
             if (contentRow !== ContentType.TEXT && (keycode !== 8 /* Backspase */ && keycode !== 46 /* Delete */ )) {
-                console.log("Hereeeeeee2", keycode)
                 event.preventDefault();
                 return false;
             }
