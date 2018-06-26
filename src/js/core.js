@@ -206,9 +206,9 @@ export default class core {
                     contentRow = item.contentRow;
             });
 
-            if (contentRow !== ContentType.TEXT) {
+            if (contentRow !== ContentType.TEXT && keycode !== 13 /* Enter */ && keycode !== 8  /* Backspase */ && keycode !== 46  /* Delete */) {
                 event.preventDefault();
-                return false
+                return false;
             }
 
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
@@ -233,7 +233,7 @@ export default class core {
             event = event || window.event;
             let keycode = (event.charCode ? event.charCode : event.which);
 
-
+            console.log(keycode)
             const regex = /cm-section-((\w*\W*)*)/g;
             let id = contenteditableDiv.parentNode.id;
             if (id.match(regex)) {
@@ -246,9 +246,9 @@ export default class core {
                     contentRow = item.contentRow;
             });
 
-            if (contentRow !== ContentType.TEXT && keycode !== 13) {
+            if (contentRow !== ContentType.TEXT && keycode !== 13 /* Enter */ && keycode !== 8  /* Backspase */ && keycode !== 46  /* Delete */) {
                 event.preventDefault();
-                return false
+                return false;
             }
 
             if (keycode === 13 && (event.ctrlKey || event.metaKey)) {
