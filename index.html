@@ -42,8 +42,14 @@
       placeholder: "اینجا تایپ کنید",
       editor: true,
       ajax: {
-        url: 'http://localhost:3004/images/',
-        method: "GET",
+        list: {
+          url: 'http://localhost:3004/images/',
+          method: "GET",
+        },
+        upload: {
+          url: 'http://localhost:3005/upload',
+          method: "POST",
+        }
       }
     });
 
@@ -57,7 +63,7 @@
           field3: "",
           field4: "",
           field5: ""
-        },{
+        }, {
           id: "dfgfgsdfgdfg1asdsa",
           contentRow: "text",
           // field1: "",
