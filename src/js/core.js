@@ -46,7 +46,7 @@ export default class core {
     constructor(elem, defaults) {
 
         // fot test 
-        const aaaaaaaaa = 1
+        const aaaaaaaaa = 2
 
         this.elem = elem;
         this.defaults = defaults;
