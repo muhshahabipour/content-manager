@@ -518,6 +518,7 @@ export default class core {
 
             } else {
                 const regex = /^<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
+                // const regex = /^["\s|\s|"]*<(\w|\W)+(src|href)+=(\\"|")(([^\\"]|\\")*)(\\"|")(\w|\W)+/g;
                 item = transform(item, (result, value, key) => {
                     if (key === "field1") {
                         if (item.field1.match(regex)) {
