@@ -58,6 +58,10 @@ body {
     &:focus {
         outline: none;
     }
+    & video, & img{
+        width: calc(100% - 26px)
+    }
+
 }
 
 .cm-btn-control {
@@ -111,6 +115,8 @@ body {
     list-style: none;
     margin: 0;
     padding: 0 0 0 4px;
+    margin-right: 40px;
+    background-color: white;
     &.show {
         display: flex;
     }
