@@ -53,6 +53,8 @@ body {
 .cm-content {
     min-height: 40px;
     padding: 8px;
+    position: relative;
+    right: 32px;
     &:focus {
         outline: none;
     }
@@ -88,7 +90,7 @@ body {
         .btn-create {
             position: absolute;
             top: 0;
-            right: -37px;
+            right: 0;
             display: flex;
             justify-content: center;
             align-items: center;
