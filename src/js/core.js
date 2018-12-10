@@ -192,9 +192,11 @@ export default class core {
         /************************ start event listener ************************/
 
         let allButtonDelete = document.querySelectorAll("button[data-action='removeList']");
+        console.log(allButtonDelete);
         (allButtonDelete).forEach((item) => {
+            
             item.addEventListener("click", (event) => {
-               
+                
                 const regex = /btn-delete-((\w*\W*)*)/g;
                 let id = event.currentTarget.id;
                 
@@ -204,8 +206,8 @@ export default class core {
             
                 let section = document.querySelector('#cm-section-' + id);
                 let contenteditableDiv = document.querySelector('#cm-content-' + id);
-                console.log((self.data).findIndex((obj)=>{ return obj.id == id}) );
-                if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((obj)=>{ return obj.id == id}) > 0) {
+               
+                if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((obj)=>{ return obj.id == id}) > -1) {
                     
                     self.removeDataItem(contenteditableDiv);
                     general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
@@ -250,6 +252,7 @@ export default class core {
                     event.preventDefault();
 
                     if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((item)=>{ return item.id == id}) > 0) {
+                    
                         self.removeDataItem(contenteditableDiv);
                         general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
                         self.elem.removeChild(section);
@@ -332,11 +335,14 @@ export default class core {
             if (id.match(regex)) {
                 id = id.replace(regex, "$1");
             }
-            let buttonControl = document.querySelector("#cm-btn-control-" + id);
+            let buttonControl = document.querySelector("#btn-create-" + id);
+            let buttonDelete = document.querySelector("#btn-delete-" + id);
             if (!this.innerText.trim().length) {
                 buttonControl.classList.remove("hidden");
+                buttonDelete.classList.add("hidden");
 
             } else {
+                buttonDelete.classList.remove("hidden");
                 buttonControl.classList.add("hidden");
                
             }
@@ -489,6 +495,7 @@ export default class core {
         if (id.match(regex)) {
             id = id.replace(regex, "$1");
         }
+        debugger;
         self.data = remove(self.data, (item) => {
             if (item.id !== id) {
                 return item;
