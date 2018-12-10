@@ -9,6 +9,7 @@ import findIndex from 'lodash/findIndex'
 import transform from 'lodash/transform'
 
 var createSectionTmp = require("./templates/create-section.handlebars");
+var deleteSectionTmp = require("./templates/delete-section.handlebars");
 var modalURL = require("./templates/modal-url.handlebars");
 
 var imageTemplate = require("./templates/image-template.handlebars");
@@ -190,8 +191,34 @@ export default class core {
 
         /************************ start event listener ************************/
 
+        let allButtonDelete = document.querySelectorAll("button[data-action='removeList']");
+        (allButtonDelete).forEach((item) => {
+            item.addEventListener("click", (event) => {
+               
+                const regex = /btn-delete-((\w*\W*)*)/g;
+                let id = event.currentTarget.id;
+                
+                if (id.match(regex)) {
+                 id = id.replace(regex, "$1"); 
+            }
+            
+                let section = document.querySelector('#cm-section-' + id);
+                let contenteditableDiv = document.querySelector('#cm-content-' + id);
+                console.log((self.data).findIndex((obj)=>{ return obj.id == id}) );
+                if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((obj)=>{ return obj.id == id}) > 0) {
+                    
+                    self.removeDataItem(contenteditableDiv);
+                    general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
+                    
+                    self.elem.removeChild(section);
+                }
+
+            })
+        })
+       
+
         // handler remove section
-        contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
+        contenteditableDiv.addEventListener("keyup ", (event) => { // can 'keypress'
             event = event || window.event;
             let keycode = (event.charCode ? event.charCode : event.which);
 
@@ -231,6 +258,9 @@ export default class core {
             }
         });
 
+       
+
+
         // handler new line/section 
         contenteditableDiv.addEventListener("keydown", (event) => {
             event = event || window.event;
@@ -238,6 +268,8 @@ export default class core {
 
             const regex = /cm-section-((\w*\W*)*)/g;
             let id = contenteditableDiv.parentNode.id;
+            
+
             if (id.match(regex)) {
                 id = id.replace(regex, "$1");
             }
@@ -250,17 +282,19 @@ export default class core {
 
             if (contentRow !== ContentType.TEXT && (keycode !== 13 /* Enter */ )) {
                 event.preventDefault();
+                contenteditableDiv.setAttribute("contenteditable", "false") //test
                 return false;
             }
 
             if (keycode === 13 && (event.ctrlKey || event.metaKey)) {
-
+                          
                 // new line
                 event.preventDefault();
                 document.execCommand("insertparagraph", false, contenteditableDiv.id)
                 // general.setEndOfContenteditable(contenteditableDiv);
 
             } else if (keycode === 13) {
+            
                 // new section
                 event.preventDefault();
                 self.createSection(section);
@@ -275,12 +309,17 @@ export default class core {
                 id = id.replace(regex, "$1");
             }
 
-            let buttonControl = document.querySelector("#cm-btn-control-" + id);
+            // let buttonControl = document.querySelector("#cm-btn-control-" + id);
+            let buttonControl = document.querySelector("#btn-create-" + id);
+            let buttonDelete = document.querySelector("#btn-delete-" + id);
             if (!this.innerText.trim().length) {
                 buttonControl.classList.remove("hidden");
+                buttonDelete.classList.add("hidden");
 
             } else {
                 buttonControl.classList.add("hidden");
+                buttonDelete.classList.remove("hidden");
+                
             }
 
             self.updateContentText(contenteditableDiv);
@@ -299,6 +338,7 @@ export default class core {
 
             } else {
                 buttonControl.classList.add("hidden");
+               
             }
 
             self.updateContentObject(contenteditableDiv, event.detail.contentRow);
@@ -314,6 +354,8 @@ export default class core {
         btnControlDiv.innerHTML = createSectionTmp({
             id: id
         });
+
+        // section.appendChild(btnControlDiv); 
 
         section.appendChild(btnControlDiv);
 
@@ -454,6 +496,7 @@ export default class core {
         })
     }
 
+   
 
     init = () => {
 
