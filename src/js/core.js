@@ -76,8 +76,10 @@ export default class core {
             const button = $(event.relatedTarget);
             $('#cm-content-' + button.data("sectionId")).html(event.detail.address);
             self.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
-            let buttonCtrl = document.querySelector('#cm-btn-control-' + button.data("sectionId"));
+            let buttonCtrl = document.querySelector('#btn-create-' + button.data("sectionId"));
+            let buttonDel = document.querySelector('#btn-delete-' + button.data("sectionId"));
             buttonCtrl.classList.add("hidden");
+            buttonDel.classList.remove("hidden");
             self.createSection(document.querySelector('#cm-section-' + button.data("sectionId")));
 
         }, false);
