@@ -247,7 +247,9 @@ export default class core {
 
 
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
-            if (keycode === 8) {
+            console.log("aaaaa"+keycode);
+            if (keycode === 8 || keycode === 46) {
+            console.log('halaa');
                 let inn = contenteditableDiv.innerText.trim();
                 if (inn === "" || !inn.length || inn === "\r\n" || inn === "\n") {
                     // remove section
