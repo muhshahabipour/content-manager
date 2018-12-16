@@ -198,7 +198,7 @@ export default class core {
         (allButtonDelete).forEach((item) => {
             
             item.addEventListener("click", (event) => {
-                
+            
                 const regex = /btn-delete-((\w*\W*)*)/g;
                 let id = event.currentTarget.id;
                 
@@ -222,10 +222,12 @@ export default class core {
        
 
         // handler remove section
-        contenteditableDiv.addEventListener("keyup ", (event) => { // can 'keypress'
+        contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
+
+        
             event = event || window.event;
             let keycode = (event.charCode ? event.charCode : event.which);
-
+            
             const regex = /cm-section-((\w*\W*)*)/g;
             let id = contenteditableDiv.parentNode.id;
             if (id.match(regex)) {
@@ -241,22 +243,26 @@ export default class core {
 
             if (contentRow !== ContentType.TEXT && (keycode !== 8 /* Backspase */ && keycode !== 46 /* Delete */ )) {
                 event.preventDefault();
+            
                 return false;
             }
 
 
 
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
-            console.log("aaaaa"+keycode);
+            
+           
             if (keycode === 8 || keycode === 46) {
-            console.log('halaa');
                 let inn = contenteditableDiv.innerText.trim();
+
+
                 if (inn === "" || !inn.length || inn === "\r\n" || inn === "\n") {
                     // remove section
                     event.preventDefault();
 
                     if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((item)=>{ return item.id == id}) > 0) {
-                    
+                        console.log("1");
+
                         self.removeDataItem(contenteditableDiv);
                         general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
                         self.elem.removeChild(section);
@@ -421,6 +427,7 @@ export default class core {
 
 
     updateContentRow = (elem, type) => {
+        console.log("aaa");
         const regex = /cm-section-((\w*\W*)*)/g;
         let id = elem.parentNode.id;
         if (id.match(regex)) {

@@ -58,6 +58,7 @@ body {
     right: 38px;
     border: 1px solid #7d7d7d;
     border-radius: 5px;
+    width: calc(100% - 38px);
 
     &:focus {
         outline: none;
