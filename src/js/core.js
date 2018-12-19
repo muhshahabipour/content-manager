@@ -116,7 +116,7 @@ export default class core {
 
         const id = self.id = general.uuid();
 
-
+        
         let thisObject = {
             id: id,
             contentRow: ContentType.TEXT,
@@ -161,7 +161,7 @@ export default class core {
                         self.data = general.insertBetween((index + 1), thisObject, self.data);
                     }
                 } else {
-                    console.log("not found index");
+                      e.log("not found index");
                     self.data.push(thisObject);
                 }
             } catch (error) {
@@ -194,7 +194,7 @@ export default class core {
         /************************ start event listener ************************/
 
         let allButtonDelete = document.querySelectorAll("button[data-action='removeList']");
-        console.log(allButtonDelete);
+        
         (allButtonDelete).forEach((item) => {
             
             item.addEventListener("click", (event) => {
@@ -209,22 +209,24 @@ export default class core {
                 let section = document.querySelector('#cm-section-' + id);
                 let contenteditableDiv = document.querySelector('#cm-content-' + id);
                
-                if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((obj)=>{ return obj.id == id}) > -1) {
-                    
+                if (self.elem.querySelectorAll('.cm-section').length > 0 && (self.data).findIndex((obj)=>{ return obj.id == id}) > -1) {
+                    if(section.previousSibling === null){
+                        // console.log('naw add');
+                    //  section = document.createElement('div');
+                        event.preventDefault();
+                        self.createSection(section);
+                    }
                     self.removeDataItem(contenteditableDiv);
-                    general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
-                    
+                    general.setEndOfContenteditable(section.querySelector('.cm-content'));   
                     self.elem.removeChild(section);
+                    
                 }
-
             })
         })
        
-
         // handler remove section
         contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
 
-        
             event = event || window.event;
             let keycode = (event.charCode ? event.charCode : event.which);
             
@@ -240,14 +242,11 @@ export default class core {
                     contentRow = item.contentRow;
             });
 
-
             if (contentRow !== ContentType.TEXT && (keycode !== 8 /* Backspase */ && keycode !== 46 /* Delete */ )) {
                 event.preventDefault();
             
                 return false;
             }
-
-
 
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
             
@@ -261,7 +260,7 @@ export default class core {
                     event.preventDefault();
 
                     if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((item)=>{ return item.id == id}) > 0) {
-                        console.log("1");
+                      
 
                         self.removeDataItem(contenteditableDiv);
                         general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
@@ -427,7 +426,7 @@ export default class core {
 
 
     updateContentRow = (elem, type) => {
-        console.log("aaa");
+       
         const regex = /cm-section-((\w*\W*)*)/g;
         let id = elem.parentNode.id;
         if (id.match(regex)) {
