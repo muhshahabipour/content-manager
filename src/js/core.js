@@ -259,11 +259,9 @@ export default class core {
                     // remove section
                     event.preventDefault();
 
-                    if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((item)=>{ return item.id == id}) > 0) {
-                      
-
+                    if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((item)=>{ return item.id == id}) > -1) {
                         self.removeDataItem(contenteditableDiv);
-                        general.setEndOfContenteditable(section.previousSibling.querySelector('.cm-content'));
+                        general.setEndOfContenteditable(section.querySelector('.cm-content'));
                         self.elem.removeChild(section);
                     }
                 }
