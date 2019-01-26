@@ -24,6 +24,40 @@ body {
         margin-bottom: 0;
     }
 }
+.map-link{
+    color: #000000;
+    cursor: pointer;
+    &:hover{
+        text-decoration: none;
+        color: #007bff;
+    }
+    &::before{
+        font-family: 'Material Icons';
+        content: "\e0c8";
+        font-size: 29px;
+        position: relative;
+        bottom: -9px;
+        line-height: 0px;
+    }
+}
+
+.link-link{
+    color: #000000;
+    cursor: pointer;
+    &:hover{
+        text-decoration: none;
+        color: #007bff;
+    }
+    &::before{
+        font-family: 'Material Icons';
+        content: "\e157";
+        font-size: 29px;
+        position: relative;
+        bottom: -9px;
+        line-height: 0px;
+        margin-right: 5px;
+    }
+}
 
 // ===========================================================
 .hasChild>a:after {
@@ -203,4 +237,5 @@ body {
     height: 512px;
     overflow: hidden;
     overflow-y: auto;
+    
 }

@@ -26,6 +26,11 @@ export default class link {
 
                 general.setEndOfContenteditable(document.querySelector(".cm-wrapper").lastElementChild.querySelector('.cm-content'));
 
+
+                let buttonCtrl = document.querySelector('#btn-create-' + button.data("sectionId"));
+                let buttonDel = document.querySelector('#btn-delete-' + button.data("sectionId"));
+                buttonCtrl.classList.add("hidden");
+                buttonDel.classList.remove("hidden");
                 $modal.modal("hide");
             } else {
                 if (!link.value) {

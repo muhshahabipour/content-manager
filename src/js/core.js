@@ -1,6 +1,7 @@
 import general from './general-functions'
 import FileManager from 'vaslapp-file-manager'
 import linkManaager from './link'
+import mapManaager from './map'
 import mediumEditor from 'medium-editor'
 import map from 'lodash/map'
 import extend from 'lodash/extend'
@@ -11,11 +12,13 @@ import transform from 'lodash/transform'
 var createSectionTmp = require("./templates/create-section.handlebars");
 var deleteSectionTmp = require("./templates/delete-section.handlebars");
 var modalURL = require("./templates/modal-url.handlebars");
+var modalMAP = require("./templates/modal-map.handlebars");
 
 var imageTemplate = require("./templates/image-template.handlebars");
 var videoTemplate = require("./templates/video-template.handlebars");
 var soundTemplate = require("./templates/sound-template.handlebars");
 var linkTemplate = require("./templates/link-template.handlebars");
+var mapTemplate = require("./templates/map-template.handlebars");
 
 
 
@@ -25,6 +28,7 @@ const ContentType = general.toEnum({
     VIDEO: "video",
     AUDIO: "audio",
     LINK: "link",
+    MAP: "map",
     CUSTOM1: "cusom-1",
     CUSTOM2: "cusom-2",
     CUSTOM3: "cusom-3",
@@ -38,6 +42,7 @@ const AccessFileManagerType = general.toEnum({
     VIDEO: "video",
     AUDIO: "audio",
     LINK: "link",
+    MAP: "map",
 });
 
 let self = null;
@@ -57,16 +62,11 @@ export default class core {
 
         self = this;
 
-
         new FileManager({
             target: self.defaults.target,
             modalId: 'contentFileManagerModal',
             ajax: self.defaults.ajax
         });
-
-        // document.addEventListener('fm.folder.item.select', function (e) {
-        // console.log(e.detail);
-        // })
 
         let selector = document.querySelector(self.defaults.target);
         selector.addEventListener('fm.file.item.select', function (event) {
@@ -88,8 +88,11 @@ export default class core {
         c.innerHTML = modalURL({});
         document.body.appendChild(c);
 
+        var m = document.createElement('div')
+        m.innerHTML = modalMAP({});
+        document.body.appendChild(m);
 
-        $('#urlModal').on('show.bs.modal', function (event) {
+        $('#urlModal').on('shown.bs.modal', function (event) {
             var $button = $(event.relatedTarget);
             var modal = $(this)
 
@@ -100,6 +103,36 @@ export default class core {
         $('#urlModal').on('hidden.bs.modal', function () {
             var modal = $(this)
             modal.find('.modal-body input').val("");
+        });
+
+        const location = new mapManaager($('#mapModal'), self);
+
+        $('#mapModal').on('shown.bs.modal', function (event) {
+            var modal = $(this)
+            var $button = $(event.relatedTarget);
+            var latLng = null;
+
+            if (event.relatedTarget.hasAttribute('data-latlng')) {
+                latLng = $(event.relatedTarget).data('latlng');
+                var sectionId = $button.data('sectionId');
+                modal.find("#map-submit").data('sectionId', sectionId)
+                modal.find("#map-submit").data('type', $button.data('type'))
+                modal.find("#map-submit").data('latlng', latLng)
+                location.initMap(latLng);
+            } else {
+
+                var sectionId = $button.data('sectionId');
+                modal.find("#map-submit").data('sectionId', sectionId)
+                modal.find("#map-submit").data('type', $button.data('type'))
+                location.initMap(latLng);
+            }
+        });
+
+        $('#mapModal').on('hidden.bs.modal', function () {
+            var modal = $(this)
+            location.removeMap();
+            modal.find('.modal-body input').val("");
+            modal.find("#map-submit").data('latlng','')
         });
 
         return this;
@@ -116,7 +149,7 @@ export default class core {
 
         const id = self.id = general.uuid();
 
-        
+
         let thisObject = {
             id: id,
             contentRow: ContentType.TEXT,
@@ -161,7 +194,8 @@ export default class core {
                         self.data = general.insertBetween((index + 1), thisObject, self.data);
                     }
                 } else {
-                      e.log("not found index");
+
+                    e.log("not found index");
                     self.data.push(thisObject);
                 }
             } catch (error) {
@@ -194,42 +228,42 @@ export default class core {
         /************************ start event listener ************************/
 
         let allButtonDelete = document.querySelectorAll("button[data-action='removeList']");
-        
+
         (allButtonDelete).forEach((item) => {
-            
+
             item.addEventListener("click", (event) => {
-            
+
                 const regex = /btn-delete-((\w*\W*)*)/g;
                 let id = event.currentTarget.id;
-                
+
                 if (id.match(regex)) {
-                 id = id.replace(regex, "$1"); 
-            }
-            
+                    id = id.replace(regex, "$1");
+                }
+
                 let section = document.querySelector('#cm-section-' + id);
                 let contenteditableDiv = document.querySelector('#cm-content-' + id);
-               
-                if (self.elem.querySelectorAll('.cm-section').length > 0 && (self.data).findIndex((obj)=>{ return obj.id == id}) > -1) {
-                    if(section.previousSibling === null){
+
+                if (self.elem.querySelectorAll('.cm-section').length > 0 && (self.data).findIndex((obj) => { return obj.id == id }) > -1) {
+                    if (section.previousSibling === null) {
                         // console.log('naw add');
-                    //  section = document.createElement('div');
+                        //  section = document.createElement('div');
                         event.preventDefault();
                         self.createSection(section);
                     }
                     self.removeDataItem(contenteditableDiv);
-                    general.setEndOfContenteditable(section.querySelector('.cm-content'));   
+                    general.setEndOfContenteditable(section.querySelector('.cm-content'));
                     self.elem.removeChild(section);
-                    
+
                 }
             })
         })
-       
+
         // handler remove section
         contenteditableDiv.addEventListener("keyup", (event) => { // can 'keypress'
 
             event = event || window.event;
             let keycode = (event.charCode ? event.charCode : event.which);
-            
+
             const regex = /cm-section-((\w*\W*)*)/g;
             let id = contenteditableDiv.parentNode.id;
             if (id.match(regex)) {
@@ -242,15 +276,15 @@ export default class core {
                     contentRow = item.contentRow;
             });
 
-            if (contentRow !== ContentType.TEXT && (keycode !== 8 /* Backspase */ && keycode !== 46 /* Delete */ )) {
+            if (contentRow !== ContentType.TEXT && (keycode !== 8 /* Backspase */ && keycode !== 46 /* Delete */)) {
                 event.preventDefault();
-            
+
                 return false;
             }
 
             self.updateContentRow(contenteditableDiv, ContentType.TEXT)
-            
-           
+
+
             if (keycode === 8 || keycode === 46) {
                 let inn = contenteditableDiv.innerText.trim();
 
@@ -259,7 +293,7 @@ export default class core {
                     // remove section
                     event.preventDefault();
 
-                    if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((item)=>{ return item.id == id}) > -1) {
+                    if (self.elem.querySelectorAll('.cm-section').length > 1 && (self.data).findIndex((item) => { return item.id == id }) > -1) {
                         self.removeDataItem(contenteditableDiv);
                         general.setEndOfContenteditable(section.querySelector('.cm-content'));
                         self.elem.removeChild(section);
@@ -268,7 +302,7 @@ export default class core {
             }
         });
 
-       
+
 
 
         // handler new line/section 
@@ -278,7 +312,7 @@ export default class core {
 
             const regex = /cm-section-((\w*\W*)*)/g;
             let id = contenteditableDiv.parentNode.id;
-            
+
 
             if (id.match(regex)) {
                 id = id.replace(regex, "$1");
@@ -290,21 +324,21 @@ export default class core {
                     contentRow = item.contentRow;
             });
 
-            if (contentRow !== ContentType.TEXT && (keycode !== 13 /* Enter */ )) {
+            if (contentRow !== ContentType.TEXT && (keycode !== 13 /* Enter */)) {
                 event.preventDefault();
                 contenteditableDiv.setAttribute("contenteditable", "false") //test
                 return false;
             }
 
             if (keycode === 13 && (event.ctrlKey || event.metaKey)) {
-                          
+
                 // new line
                 event.preventDefault();
                 document.execCommand("insertparagraph", false, contenteditableDiv.id)
                 // general.setEndOfContenteditable(contenteditableDiv);
 
             } else if (keycode === 13) {
-            
+
                 // new section
                 event.preventDefault();
                 self.createSection(section);
@@ -329,7 +363,7 @@ export default class core {
             } else {
                 buttonControl.classList.add("hidden");
                 buttonDelete.classList.remove("hidden");
-                
+
             }
 
             self.updateContentText(contenteditableDiv);
@@ -351,7 +385,7 @@ export default class core {
             } else {
                 buttonDelete.classList.remove("hidden");
                 buttonControl.classList.add("hidden");
-               
+
             }
 
             self.updateContentObject(contenteditableDiv, event.detail.contentRow);
@@ -407,6 +441,7 @@ export default class core {
                 disableDoubleReturn: true,
                 disableExtraSpaces: true,
                 placeholder: false,
+                anchorPreview: false,
                 toolbar: {
                     buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote'],
                 }
@@ -424,7 +459,7 @@ export default class core {
 
 
     updateContentRow = (elem, type) => {
-       
+
         const regex = /cm-section-((\w*\W*)*)/g;
         let id = elem.parentNode.id;
         if (id.match(regex)) {
@@ -487,6 +522,11 @@ export default class core {
                     item.field1 = linkTemplate({
                         url: content
                     });
+                } else if (AccessFileManagerType.MAP === type) {
+                    item.field1 = mapTemplate({
+                        url: content,
+                        id: id
+                    });
                 }
 
 
@@ -511,7 +551,7 @@ export default class core {
         })
     }
 
-   
+
 
     init = () => {
 
@@ -538,7 +578,6 @@ export default class core {
                 });
             }
         });
-
         self.createSection();
     }
 
