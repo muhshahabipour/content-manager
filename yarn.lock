@@ -6557,10 +6557,10 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vaslapp-file-manager@^1.0.71:
-  version "1.0.71"
-  resolved "https://registry.yarnpkg.com/vaslapp-file-manager/-/vaslapp-file-manager-1.0.71.tgz#f87c6137e4b11f6ef3f3755b6cc166f7525b8723"
-  integrity sha512-Mdwuj2aji8JO8oF81bJuO4XMdp9jLgQGWrrrSjUDPBXJXH4W4CmGa/v8w4BwghqibkKvWaFGZaiz4cRGnKmBKg==
+vaslapp-file-manager@^1.0.72:
+  version "1.0.72"
+  resolved "https://registry.yarnpkg.com/vaslapp-file-manager/-/vaslapp-file-manager-1.0.72.tgz#f5f6b21a73df7f1f2e531fa8c48bc3fcc5bc1984"
+  integrity sha512-NqC3pD/QX5LOsnsq/dm3Bb60h8qVKKYo9nzwJJF7Yv4oBecCFJAlkw51MRpnXZLeEhhfgCvHuwWTz6qmoYu15A==
   dependencies:
     bootstrap "^3.3.7"
     jquery "^3.3.1"
