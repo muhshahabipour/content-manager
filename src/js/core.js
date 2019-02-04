@@ -72,7 +72,7 @@ export default class core {
         let selector = document.querySelector(self.defaults.target);
         selector.addEventListener('cfm.file.item.select', function (event) {
             event.preventDefault();
-            // console.info(event.detail);
+            console.info("HERE CM 01");
             // console.info(event.relatedTarget);
             const button = $(event.relatedTarget);
             $('#cm-content-' + button.data("sectionId")).html(event.detail.address);
