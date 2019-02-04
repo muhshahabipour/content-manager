@@ -70,7 +70,7 @@ export default class core {
         });
 
         let selector = document.querySelector(self.defaults.target);
-        selector.addEventListener('fm.file.item.select', function (event) {
+        selector.addEventListener('cfm.file.item.select', function (event) {
             event.preventDefault();
             // console.info(event.detail);
             // console.info(event.relatedTarget);
