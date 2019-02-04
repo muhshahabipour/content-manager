@@ -65,6 +65,7 @@ export default class core {
         new FileManager({
             target: self.defaults.target,
             modalId: 'contentFileManagerModal',
+            customNameForEventFileSelect: 'cfm.file.item.select',
             ajax: self.defaults.ajax
         });
 

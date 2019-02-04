@@ -101,9 +101,9 @@ module.exports = env => {
             contentBase: './',
             port: 3005,
         },
-        devtool: 'source-map' ,
+        devtool: 'source-map',
         node: {
-            fs: 'empty'
+            fs: 'empty',
         },
         resolve: {
             alias: {
