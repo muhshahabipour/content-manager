@@ -34,9 +34,9 @@
     "webpack-dev-server": "^3.0.0"
   },
   "dependencies": {
-    "bootstrap": "^4.1.0",
+    "bootstrap": "3.3.7",
     "jquery": "^3.3.1",
     "medium-editor": "^5.23.3",
-    "vaslapp-file-manager": "^1.0.78"
+    "vaslapp-file-manager": "^1.0.91"
   }
 }
