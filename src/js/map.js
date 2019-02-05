@@ -19,7 +19,6 @@ export default class maping {
           
             const mapInput = document.querySelector("#mapInput");
             var $button = $(event.currentTarget);
-            console.log('111'); 
             // TODO: test "dsafsgg" not okey
          
                 document.querySelector('#cm-content-' + $button.data("sectionId")).innerHTML = mapInput.value;
@@ -130,9 +129,7 @@ let self = this;
             scrollWheelZoom: true
         }).setView([35.689248286487595, 51.38906293182373], 14);
         }else{
-            console.log(latLng);
             var point = latLng.split('-')
-            console.log(point);
               // initilizing map into div#map
         map = L.cedarmaps.map('locationMap', tileJSONUrl, {
             scrollWheelZoom: true

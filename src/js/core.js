@@ -10,7 +10,6 @@ import findIndex from 'lodash/findIndex'
 import transform from 'lodash/transform'
 
 var createSectionTmp = require("./templates/create-section.handlebars");
-var deleteSectionTmp = require("./templates/delete-section.handlebars");
 var modalURL = require("./templates/modal-url.handlebars");
 var modalMAP = require("./templates/modal-map.handlebars");
 
@@ -73,8 +72,6 @@ export default class core {
         let selector = document.querySelector(self.defaults.target);
         selector.addEventListener('cfm.file.item.select', function (event) {
             event.preventDefault();
-            console.info("HERE CM 01");
-            // console.info(event.relatedTarget);
             const button = $(event.relatedTarget);
             $('#cm-content-' + button.data("sectionId")).html(event.detail.address);
             self.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
