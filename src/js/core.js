@@ -44,14 +44,11 @@ const AccessFileManagerType = general.toEnum({
     MAP: "map",
 });
 
-let self = null, selfButton = "";
+let self = null;
 
 export default class core {
 
     constructor(elem, defaults) {
-
-        // fot test 
-        const aaaaaaaaa = 2
 
         this.elem = elem;
         this.defaults = defaults;
@@ -630,15 +627,16 @@ export default class core {
 }
 
 
-var onCustomEventsFileManager = function () {
+const onCustomEventsFileManager = function () {
 
     let selector = document.querySelector(self.defaults.target);
     selector.removeEventListener('cfm.file.item.select', _listenerFileManagerSelect, false);
     selector.addEventListener('cfm.file.item.select', _listenerFileManagerSelect, false);
+
 }
 
 
-var _listenerFileManagerSelect = function(event){
+const _listenerFileManagerSelect = function(event){
     event.preventDefault();
     const button = $(event.relatedTarget);
     $('#cm-content-' + button.data("sectionId")).html(event.detail.address);
