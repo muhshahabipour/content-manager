@@ -44,7 +44,7 @@ const AccessFileManagerType = general.toEnum({
     MAP: "map",
 });
 
-let self = null;
+let self = null, selfButton = "";
 
 export default class core {
 
@@ -69,19 +69,7 @@ export default class core {
             ajax: self.defaults.ajax
         });
 
-        let selector = document.querySelector(self.defaults.target);
-        selector.addEventListener('cfm.file.item.select', function (event) {
-            event.preventDefault();
-            const button = $(event.relatedTarget);
-            $('#cm-content-' + button.data("sectionId")).html(event.detail.address);
-            self.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
-            let buttonCtrl = document.querySelector('#btn-create-' + button.data("sectionId"));
-            let buttonDel = document.querySelector('#btn-delete-' + button.data("sectionId"));
-            buttonCtrl.classList.add("hidden");
-            buttonDel.classList.remove("hidden");
-            self.createSection(document.querySelector('#cm-section-' + button.data("sectionId")));
-
-        }, false);
+        onCustomEventsFileManager();
 
         var c = document.createElement('div')
         c.innerHTML = modalURL({});
@@ -639,4 +627,25 @@ export default class core {
     }
 
     getData = () => self.data;
+}
+
+
+var onCustomEventsFileManager = function () {
+
+    let selector = document.querySelector(self.defaults.target);
+    selector.removeEventListener('cfm.file.item.select', _listenerFileManagerSelect, false);
+    selector.addEventListener('cfm.file.item.select', _listenerFileManagerSelect, false);
+}
+
+
+var _listenerFileManagerSelect = function(event){
+    event.preventDefault();
+    const button = $(event.relatedTarget);
+    $('#cm-content-' + button.data("sectionId")).html(event.detail.address);
+    self.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
+    let buttonCtrl = document.querySelector('#btn-create-' + button.data("sectionId"));
+    let buttonDel = document.querySelector('#btn-delete-' + button.data("sectionId"));
+    buttonCtrl.classList.add("hidden");
+    buttonDel.classList.remove("hidden");
+    self.createSection(document.querySelector('#cm-section-' + button.data("sectionId")));
 }
