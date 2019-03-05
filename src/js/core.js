@@ -76,6 +76,16 @@ export default class core {
         m.innerHTML = modalMAP({});
         document.body.appendChild(m);
 
+        $('#contentFileManagerModal').on('shown.bs.modal', function (event) {
+            let selector = document.querySelector(self.defaults.target);
+            selector.addEventListener('cfm.file.item.select', _listenerFileManagerSelect, false);
+        })
+        $('#contentFileManagerModal').on('hidden.bs.modal', function (event) {
+            let selector = document.querySelector(self.defaults.target);
+            selector.removeEventListener('cfm.file.item.select', _listenerFileManagerSelect, false);
+        })
+
+
         $('#urlModal').on('shown.bs.modal', function (event) {
             var $button = $(event.relatedTarget);
             var modal = $(this)
