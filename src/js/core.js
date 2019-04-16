@@ -442,7 +442,8 @@ export default class core {
                 anchorPreview: false,
                 paste: {
                     cleanPastedHTML: true,
-                    unwrapTags: ['a']
+                    unwrapTags: ['a'],
+                    cleanTags: ['img']
                     // forcePlainText: true,
                     // cleanAttrs: ['class', 'style', 'dir', 'href'],
                     // cleanReplacements: [[/(<([^>]+)>)/ig, ''],[/\r?\n/g, '<br/>']],
