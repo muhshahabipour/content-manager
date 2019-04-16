@@ -204,8 +204,9 @@ export default class core {
         let section = document.createElement('div');
         section.classList.add('cm-section');
         section.id = "cm-section-" + id;
-
+// TODO CONTENT
         let contenteditableDiv = document.createElement('div');
+        // let contenteditableDiv = document.createElement('textarea');
 
         // let date = new Date()
         // contenteditableDiv.innerHTML = "for test => " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -434,8 +435,19 @@ export default class core {
                 disableReturn: true,
                 disableDoubleReturn: true,
                 disableExtraSpaces: true,
+                // forcePlainText: false,
+                // cleanPastedHTML: true,
+                // preCleanReplacements: [[/\n/],['<br/>']],
                 placeholder: false,
                 anchorPreview: false,
+                paste: {
+                    cleanPastedHTML: true,
+                    unwrapTags: ['a']
+                    // forcePlainText: true,
+                    // cleanAttrs: ['class', 'style', 'dir', 'href'],
+                    // cleanReplacements: [[/(<([^>]+)>)/ig, ''],[/\r?\n/g, '<br/>']],
+                    // cleanReplacements: [[/\s/,'<p class="a">']],
+                },
                 toolbar: {
                     buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote'],
                 }
